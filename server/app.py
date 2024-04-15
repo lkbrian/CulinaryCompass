@@ -1,6 +1,12 @@
-from flask import Flask
+#!/usr/bin/env python3
 
-app = Flask(__name__)
+from flask import request, session
+from flask_restful import Resource
+from sqlalchemy.exc import IntegrityError
+
+from config import app, db, api
+from models import User, Recipe
+
 
 @app.route('/')
 def hello():
