@@ -111,7 +111,3 @@ class Rating(db.Model, SerializerMixin):
 
     def __repr__(self):
         pass
-
-
-
-
