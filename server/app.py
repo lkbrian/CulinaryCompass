@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from flask import request, session,redirect,jsonify
+from flask import request, session,redirect,jsonify,make_response
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from config import app, db, api
@@ -59,17 +59,35 @@ class Check_session(Resource):#Collins
 class Create_recipes(Resource):#Brian
     pass
 class Recipes(Resource):#Allen
-    pass
+    def get(self):
+        recipe = [recipe.to_dict() for recipe in Recipe.query.all()]
+        response = make_response(
+            jsonify(recipe)
+             ,200)
+        return response
+
 class Favourite(Resource):#Collins
     pass
 class FavouriteByID(Resource):#Collins
     pass
 class Collection(Resource):#Collins
-    pass
+    def get(self):
+        collection_recipe = Recipe.query.filter(Recipe.collection == True).all()
+        recipe_data = [recipe.to_dict() for recipe in collection_recipe]
+        response = make_response(jsonify(recipe_data),200)
+        return response
+       
 class CollectionByID(Resource):#Brian
     pass
 class RecipeByID(Resource):#Allen
-    pass
+    def get(self,id):
+        recipe = Recipe.query.filter(Recipe.id == id).first()
+        if not recipe:
+            response = make_response(jsonify({'Error':'Recipe {id} is not found'},404))
+            return response
+        response = make_response(jsonify(recipe.to_dict()),200)
+        return response
+    
 
 api.add_resource(Home, "/")
 api.add_resource(SignUp, "/signup", endpoint="signup")
@@ -80,7 +98,7 @@ api.add_resource(Create_recipes,'/create_recipes',endpoint = 'create_recipes')
 api.add_resource(Recipes,'/recipes',endpoint ='recipes')
 api.add_resource(Favourite,'/favourite',endpoint = 'favourite')
 api.add_resource(Collection,'/collection', endpoint='collection')
-api.add_resource(RecipeByID,'/recipeByID',endpoint = 'recipeByID')
+api.add_resource(RecipeByID,'/recipes/<int:id>',endpoint = 'recipeByID')
 
 if __name__ == '__main__':
     app.run(port=5555,debug=True)
