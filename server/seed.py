@@ -61,12 +61,11 @@ with app.app_context():
         all_recipes.append(recipe)
             
          # Associate ingredients with the current recipe
-        for recipe, recipe_info in zip(all_recipes, recipes_info):
-            ingredients = recipe_info['ingredients']
-            for ingredient_name in ingredients:
-                ingredient = Ingredient.query.filter_by(name=ingredient_name).first()
-                if ingredient:
+        for ingredient, recipe_info in zip(all_ingredients, recipes_info):
+            recipe_ingredients = recipe_info['ingredients']
+            if ingredient not in recipe_ingredients:
                     recipe.ingredients.append(ingredient)
+
 
     # Create sample ratings
     print("Creating rates")
