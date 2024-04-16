@@ -11,7 +11,19 @@ class Home(Resource):
         return 'Hello, World!!'
     
 class Login(Resource):#Brian
-    pass
+    def post(self):
+                
+        username = request.get_json()['username']
+        password = request.get_json()['password']
+
+        user = User.query.filter(User.username == username).first()
+
+        if user.authenticate(password):
+
+            session['user_id'] = user.id
+            return user.to_dict(), 200
+
+        return {'error': '401 Unauthorized'}, 401
 class Logout(Resource):#Allen
     pass
 class Check_session(Resource):#Collins
@@ -22,7 +34,11 @@ class Recipes(Resource):#Allen
     pass
 class Favourite(Resource):#Collins
     pass
-class Collection(Resource):#Brian
+class FavouriteByID(Resource):#Collins
+    pass
+class Collection(Resource):#Collins
+    pass
+class CollectionByID(Resource):#Brian
     pass
 class RecipeByID(Resource):#Allen
     pass

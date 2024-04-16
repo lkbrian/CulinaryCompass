@@ -23,7 +23,7 @@ with app.app_context():
                 try:
                     username = fake.first_name()
                     user = User(username=username, email=fake.email(), bio=fake.paragraph(), img_url=fake.image_url())
-                    user.password_hash = fake.password()
+                    user.password_hash = "password"
                     all_users.append(user)
                     break
                 except IntegrityError:
