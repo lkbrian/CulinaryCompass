@@ -1,50 +1,78 @@
 from models import User, Recipe, Ingredient, Rating,recipe_ingredient
 from config import app, db
 from faker import Faker
+from data import recipes_info
+from random import choice,randint
 
 fake =Faker()
 
 with app.app_context():
-
+    print("Deleting tables")
     db.session.query(recipe_ingredient).delete()
     db.session.commit()
     User.query.delete()
     Ingredient.query.delete()
     Recipe.query.delete()
     Rating.query.delete()
-  
-    # Create sample users
-    user1 = User(username=fake.first_name(), email=fake.email(),
-                 bio='Rice to meet you', img_url='sample_url_1')
-    user1.password_hash = fake.password()  
-    user2 = User(username=fake.first_name(), email=fake.email(),
-                 bio='Have an egg-cellent day!', img_url='sample_url_2')
-    user2.password_hash =fake.password()
+
+    print("creating users")
+    all_users =[]
+    for _ in range(10):
+        user= User(username=fake.first_name(), email=fake.email(),bio=fake.paragraph(), img_url=fake.image_url())
+        user.password_hash=fake.password()
+        all_users.append(user)
+
 
     # Create sample recipes
-    recipe1 = Recipe(title='Recipe 1', description='Sample recipe 1 description',
-                     instructions='Sample instructions for recipe 1', cook_time=30, user=user1)
-    recipe2 = Recipe(title='Recipe 2', description='Sample recipe 2 description',
-                     instructions='Sample instructions for recipe 2', cook_time=45, user=user2)
+    print("creating recipes")
+    all_recipes=[]
+    all_ingredients = []
 
-    # Create sample ingredients
-    ingredient1 = Ingredient(name='Ingredient 1', quantity='100g')
-    ingredient2 = Ingredient(name='Ingredient 2', quantity='2 cups')
+    ingredients_set = []
+    for ing in recipes_info:
+        if ing not in ingredients_set:
+            ingredients_set.append(ing['ingredients'])
 
-    # Assign ingredients to recipes
-    recipe1.ingredients.append(ingredient1)
-    recipe1.ingredients.append(ingredient2)
-    recipe2.ingredients.append(ingredient1)
+    for recipe_info in recipes_info:
+        instructions_text = "\n".join(recipe_info['instructions'])
+        random_user = choice(all_users)
+        recipe = Recipe(title=recipe_info['name'], description=recipe_info['description'],
+                        instructions=instructions_text, cook_time=recipe_info['cook_time'], user=random_user)
+        all_recipes.append(recipe)
+        
+    print("creating ingredients")
+    for ingredient_name in ingredients_set:
+        ingredient = next((ing for ing in all_ingredients if ing.name == ingredient_name), None)
+        if not ingredient:
+            ingredient = Ingredient(name=ingredient_name, quantity='None')
+            all_ingredients.append(ingredient)
+        recipe.ingredients.append(ingredient)
+
+
+    # for recipe in all_recipes:
+    #     for ingredient in all_ingredients:
+    #         if ingredient not in recipe_info['ingredients']:
+    #             # print("# Associate the ingredient with the current recipe")
+    #             recipe.ingredients.append(ingredient)
+    #             # print("# Associate the recipe with the current ingredient")
+    #             # ingredient.recipes.append(recipe)
 
     # Create sample ratings
-    rating1 = Rating(message='Great recipe!', rating_value=5,
-                     user=user1, recipe=recipe1)
-    rating2 = Rating(message='Could be better', rating_value=3,
-                     user=user2, recipe=recipe1)
-    rating3 = Rating(message='Delicious!', rating_value=4,
-                     user=user1, recipe=recipe2)
+    all_ratings=[]
+    for _ in range(8):
+        random_user=choice(all_users)
+        random_recipe=choice(all_recipes)
+        value=randint(0,5)
+        rating = Rating(message=fake.paragraph(),rating_value=value,user=random_user,recipe=random_recipe)
 
     # Add objects to the session and commit
-    db.session.add_all([user1, user2, recipe1, recipe2,
-                       ingredient1, ingredient2, rating1, rating2, rating3])
+    db.session.add_all(all_recipes)
+    db.session.add_all(all_users)
+    db.session.add_all(all_ingredients)
+    db.session.add_all(all_ratings)
     db.session.commit()
+# print(recipes_info)
+    # # Assign ingredients to recipes
+    # recipe1.ingredients.append(ingredient1)
+    # recipe1.ingredients.append(ingredient2)
+    # recipe2.ingredients.append(ingredient1)
