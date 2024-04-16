@@ -379,7 +379,7 @@ recipes_info = [
     {
         "name": "Classic Spaghetti Carbonara",
         "description": "This classic Italian pasta dish features a creamy sauce made with eggs, cheese, pancetta, and black pepper.",
-        "ingredients": {
+        "ingredients": [
             
                 "350g spaghetti",
                 "150g pancetta or guanciale, diced",
@@ -393,7 +393,7 @@ recipes_info = [
                 "Garlic cloves, minced",
                 "Red pepper flakes, for heat"
         
-        },
+        ],
         "instructions": [
             "Prepare the Spaghetti: Cook the spaghetti in a large pot of salted boiling water until al dente. Reserve 1 cup of pasta water, then drain the spaghetti.",
             "Cook the Pancetta: Heat a large skillet over medium heat. Add the diced pancetta and cook until crispy and golden brown, about 5-7 minutes. Remove from heat.",
@@ -406,8 +406,8 @@ recipes_info = [
     {
         "name": "Chicken Alfredo Pasta",
         "description": "A comforting and creamy pasta dish featuring tender chicken and a rich Alfredo sauce.",
-        "ingredients": {
-            
+        "ingredients": [
+        
                 "300g fettuccine pasta",
                 "2 boneless, skinless chicken breasts, thinly sliced",
                 "2 cups heavy cream",
@@ -421,7 +421,7 @@ recipes_info = [
                 "Cherry tomatoes, halved",
                 "Crushed red pepper flakes, for heat"
             
-        },
+        ],
         "instructions": [
             "Cook the Pasta: Cook the fettuccine pasta in a large pot of salted boiling water until al dente. Drain and set aside.",
             "Cook the Chicken: In a large skillet, melt the butter over medium-high heat. Add the sliced chicken breasts and cook until golden brown and cooked through, about 6-8 minutes. Remove from skillet and set aside.",
@@ -434,7 +434,7 @@ recipes_info = [
     {
         "name": "Classic Beef Lasagna",
         "description": "Layers of tender pasta, savory beef sauce, and creamy cheese make this classic lasagna a family favorite.",
-        "ingredients": {
+        "ingredients": [
             
                 "9 lasagna noodles",
                 "500g ground beef",
@@ -455,7 +455,7 @@ recipes_info = [
                 "Chopped spinach",
                 "Red wine, for deglazing"
             
-        },
+        ],
         "instructions": [
             "Cook the Lasagna Noodles: Cook the lasagna noodles according to package instructions until al dente. Drain and set aside.",
             "Prepare the Beef Sauce: In a large skillet, cook the ground beef, chopped onion, and minced garlic over medium heat until the beef is browned and the onion is softened. Drain excess fat if needed. Stir in the crushed tomatoes, tomato paste, dried basil, dried oregano, salt, and black pepper. Simmer for 15-20 minutes, stirring occasionally.",
@@ -469,7 +469,7 @@ recipes_info = [
     {
         "name": "Vegetable Stir-Fry",
         "description": "A quick and healthy stir-fry packed with colorful vegetables and savory flavors.",
-        "ingredients": {
+        "ingredients": [
             
                 "2 cups mixed vegetables (such as bell peppers, broccoli, carrots, snap peas)",
                 "200g firm tofu, drained and cubed",
@@ -486,7 +486,7 @@ recipes_info = [
                 "Water chestnuts",
                 "Chopped scallions, for garnish"
             
-        },
+        ],
         "instructions": [
             "Prepare the Sauce: In a small bowl, whisk together soy sauce, sesame oil, minced garlic, and minced ginger.",
             "Cook the Tofu: In a large skillet or wok, heat 1 tablespoon of sesame oil over medium-high heat. Add cubed tofu and cook until golden brown on all sides. Remove tofu from skillet and set aside.",
@@ -500,7 +500,7 @@ recipes_info = [
     {
         "name": "Mushroom Risotto",
         "description": "A creamy and flavorful risotto made with Arborio rice and sautéed mushrooms.",
-        "ingredients": {
+        "ingredients": [
             
                 "1 cup Arborio rice",
                 "4 cups vegetable or chicken broth",
@@ -518,7 +518,7 @@ recipes_info = [
                 "Truffle oil, for drizzling",
                 "Fresh thyme leaves, for garnish"
             
-        },
+        ],
         "instructions": [
             "Prepare the Broth: In a saucepan, heat the vegetable or chicken broth over medium heat until simmering. Keep warm while preparing the risotto.",
             "Sauté Mushrooms: In a large skillet or Dutch oven, heat olive oil over medium heat. Add sliced mushrooms and cook until they release their moisture and become golden brown, about 6-8 minutes. Remove mushrooms from skillet and set aside.",
@@ -534,7 +534,7 @@ recipes_info = [
     {
         "name": "Chicken Tikka Masala",
         "description": "A classic Indian dish featuring tender marinated chicken in a creamy tomato-based sauce.",
-        "ingredients": {
+        "ingredients": [
             
                 "500g boneless, skinless chicken thighs, cut into bite-sized pieces",
                 "1 cup plain yogurt",
@@ -559,7 +559,7 @@ recipes_info = [
                 "Ground fenugreek",
                 "Chopped green chilies, for extra heat"
             
-        },
+        ],
         "instructions": [
             "Marinate Chicken: In a mixing bowl, combine plain yogurt, minced garlic, minced ginger, lemon juice, ground cumin, ground coriander, paprika, turmeric, cayenne pepper, salt, and black pepper. Add chicken pieces to the marinade, coating evenly. Cover and refrigerate for at least 1 hour or overnight.",
             "Cook Chicken: In a large skillet or Dutch oven, heat ghee or butter over medium heat. Add marinated chicken pieces and cook until browned and cooked through, about 8-10 minutes. Remove chicken from skillet and set aside.",
@@ -572,7 +572,7 @@ recipes_info = [
     {
         "name": "Beef Tacos",
         "description": "A crowd-pleasing Mexican favorite featuring seasoned ground beef, fresh toppings, and warm tortillas.",
-        "ingredients": {
+        "ingredients": [
             
                 "500g ground beef",
                 "1 onion, finely chopped",
@@ -594,7 +594,7 @@ recipes_info = [
                 "Salsa",
                 "Hot sauce"
             
-        },
+        ],
         "instructions": [
             "Cook Beef: In a large skillet, cook ground beef over medium heat until browned and cooked through, breaking it apart with a spoon. Drain excess fat if needed.",
             "Season Beef: Add chopped onion, minced garlic, chili powder, ground cumin, paprika, dried oregano, salt, and black pepper to the skillet with the cooked beef. Stir to combine and cook for an additional 2-3 minutes.",
@@ -607,7 +607,7 @@ recipes_info = [
     {
         "name": "Vegetable Curry",
         "description": "A hearty and flavorful vegetarian curry featuring an array of colorful vegetables in a fragrant sauce.",
-        "ingredients": {
+        "ingredients": [
             
                 "2 tablespoons vegetable oil",
                 "1 onion, finely chopped",
@@ -628,7 +628,7 @@ recipes_info = [
                 "Chopped green chilies, for heat",
                 "Chickpeas or lentils, for added protein"
             
-        },
+        ],
         "instructions": [
             "Sauté Aromatics: In a large skillet or Dutch oven, heat vegetable oil over medium heat. Add chopped onion and cook until softened and translucent, about 5 minutes. Stir in minced garlic and minced ginger, cooking for an additional 2 minutes until fragrant.",
             "Add Spices: Sprinkle curry powder, ground cumin, ground coriander, turmeric, and paprika over the sautéed aromatics. Stir to coat the onion mixture with the spices.",
