@@ -28,11 +28,7 @@ class SignUp(Resource):
         db.session.add(new_user)
         db.session.commit()
 
-        return redirect("/")
-
-
-
-    
+        return redirect("/")    
 class Login(Resource):#Brian
     def post(self):
                 
@@ -44,20 +40,39 @@ class Login(Resource):#Brian
         if user.authenticate(password):
 
             session['user_id'] = user.id
-            return user.to_dict(), 200
+            return user.to_dict(), 201
 
         return {'error': '401 Unauthorized'}, 401
+    
 class Logout(Resource):#Allen
     def logout(self):
         if session.get('user_id'):
             session['user_id'] = None
             return {},204
         return {"Error":"Unauthorized"},401
-  
+
 class Check_session(Resource):#Collins
-    pass
+    def get(self):
+        
+        user_id = session['user_id']
+        if user_id:
+            user = User.query.filter(User.id == user_id).first()
+            return user.to_dict(), 200
+        
+        return {}, 401    
 class Create_recipes(Resource):#Brian
-    pass
+    def post(self):
+        title = request.get_json()['title']
+        cook_time = request.get_json()['cook_time']
+        description = request.get_json()['description']
+        instructions = request.get_json()['instructions']
+        user = User.query.filter(User.id == 4).first() #session['user_id']
+        # if  user:
+        recipe = Recipe(title=title, description=description, instructions=instructions,
+            cook_time=cook_time, user=user)
+        db.session.add(recipe)
+        db.session.commit()
+        # return {'error': '401 Unauthorized'}, 422
 class Recipes(Resource):#Allen
     def get(self):
         recipe = [recipe.to_dict() for recipe in Recipe.query.all()]

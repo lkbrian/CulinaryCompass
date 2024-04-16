@@ -1,11 +1,13 @@
-import LoginForm from "./components/LoginForm.jsx";
+// import LoginForm from "./components/LoginForm.jsx";
 import  Navbar  from "./components/Navbar.jsx";
+import RecipeForm from "./components/RecipeForm.jsx";
 
 function App() {
   return (
     <>
       <Navbar />
-      <LoginForm/>
+      {/* <LoginForm/> */}
+      <RecipeForm/>
     </>
   );
 }
