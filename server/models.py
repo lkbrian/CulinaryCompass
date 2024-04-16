@@ -15,6 +15,7 @@ recipe_ingredient = db.Table('recipe_ingredient', metadata,
 
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
+    serialize_only = ("id","username","bio","img_url")
     # Table columns
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
@@ -31,7 +32,7 @@ class User(db.Model, SerializerMixin):
     favorite_recipes = association_proxy(
         'ratings', 'recipe', creator=lambda recipe_obj: Rating(recipe=recipe_obj))
     # serializers
-    serialize_rules = ('-ratings.user', '-recipes.user')
+
 
     def __repr__(self):
         return f"ID {self.id},Username {self.username}"
@@ -51,7 +52,7 @@ class User(db.Model, SerializerMixin):
 
 class Recipe(db.Model, SerializerMixin):
     __tablename__ = "recipes"
-
+    serialize_rules = ('-ratings.recipe',)
     # Table columns
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String, nullable=False)
@@ -71,7 +72,7 @@ class Recipe(db.Model, SerializerMixin):
     users = association_proxy(
         'ratings', 'user', creator=lambda user_obj: Rating(user=user_obj))
     # serializers
-    serialize_rules = ('-ratings.recipe',)
+
 
     def __repr__(self):
         pass
@@ -79,6 +80,7 @@ class Recipe(db.Model, SerializerMixin):
 
 class Ingredient(db.Model, SerializerMixin):
     __tablename__ = "ingredients"
+    serialize_only=("id","name")
 
     # Table columns
     id = db.Column(db.Integer, primary_key=True)
@@ -94,7 +96,7 @@ class Ingredient(db.Model, SerializerMixin):
 
 class Rating(db.Model, SerializerMixin):
     __tablename__ = "ratings"
-
+    serialize_rules = ('-user.ratings', '-recipe.ratings')
     # Table Columns
     id = db.Column(db.Integer, primary_key=True)
     message = db.Column(db.String)
@@ -107,7 +109,7 @@ class Rating(db.Model, SerializerMixin):
     recipe = db.relationship("Recipe", back_populates='ratings')
 
     # serializers
-    serialize_rules = ('-user.ratings', '-recipe.ratings')
+    
 
     def __repr__(self):
         pass
