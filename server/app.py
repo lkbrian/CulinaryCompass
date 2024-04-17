@@ -82,9 +82,23 @@ class Recipes(Resource):#Allen
         return response
 
 class Favourite(Resource):#Collins
+    def get(self):
+        favourite_recipe = Recipe.query.filter(Recipe.favorite == True).all()
+        recipe_data  = [recipe.to_dict() for recipe in favourite_recipe]
+        response = make_response(jsonify(recipe_data),200)
+        return response 
     pass
 class FavouriteByID(Resource):#Collins
-    pass
+    def get(self,id):
+        favourite_recipes = Recipe.query.filter(Recipe.favorite == True).all()
+        if not favourite_recipes:
+                return {'Error': f'Recipe {id} not found'}, 404
+        favourite_data = [recipe.to_dict() for recipe in favourite_recipes]
+        response = make_response(jsonify(favourite_data), 200)
+        return response
+
+
+    
 class Collection(Resource):#Collins
     def get(self):
         collection_recipe = Recipe.query.filter(Recipe.collection == True).all()
@@ -93,7 +107,15 @@ class Collection(Resource):#Collins
         return response
        
 class CollectionByID(Resource):#Brian
-    pass
+    def get(self,id):
+        collection_recipes = Recipe.query.filter(Recipe.collection == False).all()
+        if not collection_recipes:
+            return {'message': f'No recipe {id} found for this collection'}, 404
+
+        recipes_data = [recipe.to_dict() for recipe in collection_recipes]
+        response = make_response(jsonify(recipes_data),200)
+        return response
+
 class RecipeByID(Resource):#Allen
     def get(self,id):
         recipe = Recipe.query.filter(Recipe.id == id).first()
@@ -103,6 +125,15 @@ class RecipeByID(Resource):#Allen
         response = make_response(jsonify(recipe.to_dict()),200)
         return response
     
+class RecipeById(Resource):
+    def delete(self,id):
+        recipe = Recipe.query.filter_by(id=id).first()
+        if not recipe:
+            return {"Error":f'Recipe {id} not found'},404
+        db.session.delete(recipe)
+        db.session.commit()
+        return {'message':'Recipe deleted'},204
+    
 
 api.add_resource(Home, "/")
 api.add_resource(SignUp, "/signup", endpoint="signup")
@@ -111,9 +142,12 @@ api.add_resource(Logout,"/logout",endpoint="logout")
 api.add_resource(Check_session,'/check_session',endpoint='check_session')
 api.add_resource(Create_recipes,'/create_recipes',endpoint = 'create_recipes')
 api.add_resource(Recipes,'/recipes',endpoint ='recipes')
-api.add_resource(Favourite,'/favourite',endpoint = 'favourite')
-api.add_resource(Collection,'/collection', endpoint='collection')
-api.add_resource(RecipeByID,'/recipes/<int:id>',endpoint = 'recipeByID')
+api.add_resource(Favourite, '/favourites', endpoint='favourite')
+api.add_resource(FavouriteByID, '/favourites/<int:id>', endpoint='favourite_by_id')
+api.add_resource(Collection, '/collections', endpoint='collection')
+api.add_resource(CollectionByID, '/collections/<int:id>',endpoint='collectionById')
+api.add_resource(RecipeByID, '/recipes/<int:id>', endpoint='recipeByID')
+api.add_resource(RecipeById, '/recipes/<int:id>', endpoint='recipeById')
 
 if __name__ == '__main__':
     app.run(port=5555,debug=True)
