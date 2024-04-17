@@ -30,7 +30,7 @@ import {
   ViewOffIcon,
 } from "@chakra-ui/icons";
 
-function UserForm() {
+function UserAuth() {
   //modal states
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -327,4 +327,4 @@ function UserForm() {
   );
 }
 
-export default UserForm;
+export default UserAuth;
