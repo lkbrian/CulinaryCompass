@@ -1,17 +1,18 @@
-import { Box, Heading } from "@chakra-ui/react";
-
+import { Box, Flex, Image } from "@chakra-ui/react";
+import logo from "../assets/logo.png"
+import { NavLink } from "react-router-dom";
 function Navbar() {
   return (
-    <Box bg={'#111'}>
-      <Heading
-        bg="url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNplZLxNdSpq5tiske32OJrs7GKcLth0NbIQ&s') center/cover no-repeat"
-        color="white"
-        textAlign="center"
-        bgClip="text"
-      >
-        Culinary Compass
-      </Heading>
-    </Box>
+    <Flex px={10} bg={'none'} justify={"space-between"}color={"#0a303d"}>
+      <Box w={"300px"}><Image src={logo} objectFit={"contain"} /></Box>
+      <Flex gap={6} letterSpacing={1} fontWeight={600} align={"center"}>
+    <NavLink>Home</NavLink>
+    <NavLink>Recipies</NavLink>
+    <NavLink>Collection</NavLink>
+    <NavLink>Create recipe</NavLink>
+    <NavLink>User</NavLink>
+      </Flex>
+    </Flex>
   );
 }
 
