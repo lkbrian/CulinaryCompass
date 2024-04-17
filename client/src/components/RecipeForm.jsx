@@ -1,10 +1,13 @@
 import { Box, Heading, FormControl, FormLabel, Input, Textarea, Button, Text, Flex } from "@chakra-ui/react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import Navbar from "./Navbar";
 
 const RecipeForm = () => {
   return (
-    <Box maxW="xl" mx="auto" mt={8} p={8} borderWidth="1px" borderRadius="md">
+    <>
+    <Navbar/>
+    <Box maxW="xl" mx={{base:"20px",md:"auto"}} mt={8} p={8} borderWidth="1px" borderRadius="md">
       <Heading mb={4}>Create Recipe</Heading>
       <Formik
         initialValues={{
@@ -51,8 +54,9 @@ const RecipeForm = () => {
         }}
       >
         {({ isSubmitting }) => (
+          
           <Form>
-            <Flex gap={2} justify={'center'}>
+            <Flex gap={2} align={"center"}justify={'center'}>
             <Field name="title">
               {({ field }) => (
                 <FormControl id="title" mt={4} isInvalid={field.error && field.touched}>
@@ -98,6 +102,7 @@ const RecipeForm = () => {
         )}
       </Formik>
     </Box>
+    </>
   );
 };
 
