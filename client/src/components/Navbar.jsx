@@ -1,6 +1,8 @@
 import { Box, Flex, Image } from "@chakra-ui/react";
 import logo from "../assets/logo.png"
 import { NavLink } from "react-router-dom";
+import UserAuth from "./UserAuth";
+
 function Navbar() {
   return (
     <Flex px={10} bg={'none'} justify={"space-between"}color={"#0a303d"}>
@@ -11,6 +13,7 @@ function Navbar() {
     <NavLink>Collection</NavLink>
     <NavLink>Create recipe</NavLink>
     <NavLink>User</NavLink>
+    <UserAuth/>
       </Flex>
     </Flex>
   );
