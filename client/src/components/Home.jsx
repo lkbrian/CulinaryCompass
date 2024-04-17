@@ -1,4 +1,6 @@
 import Navbar from "./Navbar";
+import UserAuth from "./UserAuth";
+import { useState, useEffect } from "react";
 import {
   Box,
   Heading,
@@ -14,11 +16,34 @@ import chef_img from "../assets/plated.png";
 import { Link } from "react-router-dom"; // Import for navigation links
 
 function Home() {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const response = await fetch("/check_session");
+        if (response.ok) {
+          const user = await response.json();
+          setUser(user);
+        }
+      } catch (error) {
+        console.error("Error fetching session data:", error);
+      }
+    };
+
+    fetchSession();
+  }, []);
+
   return (
     <Box minH={"100vh"} bg={"#fff"} color={"#0a303d"}>
       {/* Hero Section */}
+
+      <Navbar user={user} setUser={setUser} />
+      <Box bg="#fff" py={20} color={"#0a303d"}>
+
       <Navbar />
       <Box py={20} pb={40}>
+
         <Container maxW="container.xl">
           <Flex
             alignItems="center"
@@ -29,6 +54,25 @@ function Home() {
               flex={{ base: "none", md: "1" }}
               maxW={{ base: "100%", md: "50%" }}
             >
+
+              <Image
+                src={hero_img}
+                alt="Chef preparing food"
+                borderRadius="xl"
+              />
+            </Box>
+            <Box maxW={{ base: "100%", md: "50%" }}>
+              <Heading size="xl" mb={4}>
+                Welcome to Culinary Compass
+              </Heading>
+              <Text fontSize="lg" letterSpacing={1}>
+                Explore a variety of recipes to experiment with and tantalize
+                your taste buds with flavors from around the world.
+              </Text>
+              <Button bg={"#FFCA3A"} mt={8}>
+                Explore recipes
+              </Button>
+
               <Stack spacing={8}>
                 <Heading size="xl">Your Culinary Journey Starts Here</Heading>
                 <Text fontSize="lg" letterSpacing={1}>
@@ -50,6 +94,7 @@ function Home() {
                 alt="A mouthwatering burger"
                 borderRadius="xl"
               />
+
             </Box>
           </Flex>
         </Container>
@@ -107,6 +152,11 @@ function Home() {
               <Heading size="xl" mb={4}>
                 Discover New Flavors
               </Heading>
+
+              <Text fontSize="lg" letterSpacing={1}>
+                Discover exciting new recipes and cooking techniques to spice up
+                your meals.
+
               <Text fontSize="lg" letterSpacing={1} w={[500,600]} textAlign={'center'}>
                 Break free from the routine! Our extensive recipe collection
                 caters to diverse dietary needs and preferences. Whether
@@ -114,10 +164,24 @@ function Home() {
                 or someone simply seeking new culinary experiences, we have
                 something to ignite your passion. Find inspiration for weeknight
                 meals, special occasion feasts, or themed culinary explorations.
+
               </Text>
               <Button bg={"#FFCA3A"} mt={8} as={Link} to="/all_recipes">
                 Get Inspired
               </Button>
+
+            </Box>
+            <Box
+              flex={{ base: "none", md: "1" }}
+              maxW={{ base: "100%", md: "50%" }}
+            >
+              <Image
+                src={chef_img}
+                alt="Chef with ingredients"
+                borderRadius="xl"
+              />
+            </Box>
+
             </Flex>
           </Flex>
         </Container>

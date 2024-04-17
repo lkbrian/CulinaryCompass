@@ -28,7 +28,17 @@ class SignUp(Resource):
             db.session.commit()
             session['user_id'] = new_user.id
             return new_user.to_dict(),201
-  
+        
+class Check_session(Resource):
+    def get(self):
+        
+        user_id = session['user_id']
+        if user_id:
+            user = User.query.filter(User.id == user_id).first()
+            return user.to_dict(), 200
+        
+        return {}, 401    
+    
 class Login(Resource):
     def post(self):
         data = request.get_json()
@@ -49,15 +59,7 @@ class Logout(Resource):
             return {},204
         return {"Error":"Unauthorized"},401
 
-class Check_session(Resource):
-    def get(self):
-        
-        user_id = session['user_id']
-        if user_id:
-            user = User.query.filter(User.id == user_id).first()
-            return user.to_dict(), 200
-        
-        return {}, 401    
+
 class Create_recipes(Resource):
     def post(self):
         title = request.get_json()['title']
@@ -134,10 +136,10 @@ class RecipeById(Resource):
     
 
 api.add_resource(Home, "/")
+api.add_resource(Check_session,'/check_session',endpoint='check_session')
 api.add_resource(SignUp, "/signup", endpoint="signup")
 api.add_resource(Login,"/login",endpoint="login")
 api.add_resource(Logout,"/logout",endpoint="logout")
-api.add_resource(Check_session,'/check_session',endpoint='check_session')
 api.add_resource(Create_recipes,'/create_recipes',endpoint = 'create_recipes')
 api.add_resource(Recipes,'/recipes',endpoint ='recipes')
 api.add_resource(Favourite, '/favourites', endpoint='favourite')
