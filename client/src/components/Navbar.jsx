@@ -36,7 +36,7 @@ function Navbar() {
         <NavLink className={"links"} to="/">
           Home
         </NavLink>
-        <NavLink className={"links"} to="/recipes">
+        <NavLink className={"links"} to="/all_recipes">
           Recipes
         </NavLink>
         <NavLink className={"links"} to="/collection">
@@ -83,7 +83,7 @@ function Navbar() {
               </NavLink>
               <NavLink
                 className={"drawer-link"}
-                to={"/recipe"}
+                to={"/all_recipes"}
                 smooth="true"
                 onClick={() => {
                   onClose();
