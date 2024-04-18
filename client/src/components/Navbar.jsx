@@ -146,7 +146,3 @@ function Navbar() {
 }
 
 export default Navbar;
-Navbar.propTypes = {
-  user: PropTypes.object,
-  setUser: PropTypes.func, 
-};
