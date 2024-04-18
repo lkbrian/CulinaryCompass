@@ -22,6 +22,14 @@ function Navbar({ user,setUser }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
+  function handleClick (){
+    fetch("/api/logout", { method: "DELETE" }).then((r) => {
+      if (r.ok) {
+        setUser(null);
+      }
+    });
+  }
+
   return (
     <Flex
       px={{ base: 4, lg: 10 }}
@@ -56,9 +64,18 @@ function Navbar({ user,setUser }) {
             <NavLink className={"links"} to="/create">
               Create
             </NavLink>
-            <NavLink className={"links"} to="/account">
-              User
-            </NavLink>
+            <Button
+              alignSelf={"center"}
+              w={"150px"}
+              bg={"#FFCA3A"}
+              type="submit"
+              variant={"ghost"}
+              onClick={handleClick}
+              _hover={{ background: "#FFCA3A" }}
+              // isLoading={isSubmitting}
+            >
+              Logout
+            </Button>
           </Flex>
           <Flex display={{ base: "flex", lg: "none" }}>
             <Box
@@ -143,103 +160,6 @@ function Navbar({ user,setUser }) {
       ) : (
         <UserAuth />
       )}
-
-      <Flex
-        letterSpacing={1}
-        align={"center"}
-        as="nav"
-        gap={{ base: "12px", md: "30px" }}
-        display={{ base: "none", lg: "flex" }}
-        pr={"10px"}
-      >
-        <NavLink className={"links"} to="/">
-          Home
-        </NavLink>
-        <NavLink className={"links"} to="/all_recipes">
-          Recipes
-        </NavLink>
-        <NavLink className={"links"} to="/collection">
-          Collection
-        </NavLink>
-        <NavLink className={"links"} to="/create">
-          Create
-        </NavLink>
-        <NavLink className={"links"} to="/account">
-          User
-        </NavLink>
-      </Flex>
-      <Flex display={{ base: "flex", lg: "none" }} >
-        <Box
-          cursor={"pointer"}
-          borderRadius={"8px"}
-          ref={btnRef}
-          bg={"none"}
-          onClick={onOpen}
-        >
-          <CgMenuRightAlt color={"#0a303d"} fontSize={"2rem"} />
-        </Box>
-        <Drawer
-          isOpen={isOpen}
-          placement="right"
-          onClose={onClose}
-          finalFocusRef={btnRef}
-        >
-          <DrawerOverlay />
-          <DrawerContent bg={"#fff"}>
-            <DrawerCloseButton />
-            <DrawerHeader></DrawerHeader>
-
-            <DrawerBody display={"flex"} flexDirection={"column"} gap={"8px"}>
-              <NavLink
-                className={"drawer-link"}
-                to={"/"}
-                smooth="true"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                Home
-              </NavLink>
-              <NavLink
-                className={"drawer-link"}
-                to={"/all_recipes"}
-                smooth="true"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                Recipe
-              </NavLink>
-              <NavLink
-                className={"drawer-link"}
-                to={"/create"}
-                smooth="true"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                Create
-              </NavLink>
-              <NavLink
-                className={"drawer-link"}
-                to={"/collection"}
-                smooth="true"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                Collection
-              </NavLink>       
-            </DrawerBody>
-            <DrawerFooter>
-              <Text color={"#d4d4d4"} fontSize={".8rem"} textAlign={"center"}>
-                &copy;2024 culinarycompass.All rights reserved.
-              </Text>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      </Flex>
-
     </Flex>
   );
 }
