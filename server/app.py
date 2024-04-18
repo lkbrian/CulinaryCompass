@@ -66,13 +66,13 @@ class Create_recipes(Resource):
         cook_time = request.get_json()['cook_time']
         description = request.get_json()['description']
         instructions = request.get_json()['instructions']
-        user = User.query.filter(User.id == 4).first() #session['user_id']
-        # if  user:
-        recipe = Recipe(title=title, description=description, instructions=instructions,
+        user = User.query.filter(User.id == session['user_id']).first() #
+        if  user:
+            recipe = Recipe(title=title, description=description, instructions=instructions,
             cook_time=cook_time, user=user)
-        db.session.add(recipe)
-        db.session.commit()
-        # return {'error': '401 Unauthorized'}, 422
+            db.session.add(recipe)
+            db.session.commit()
+        return {'error': '401 Unauthorized'}, 422
 class Recipes(Resource):
     def get(self):
         recipe = [recipe.to_dict() for recipe in Recipe.query.all()]
@@ -150,4 +150,4 @@ api.add_resource(RecipeByID, '/recipes/<int:id>', endpoint='recipeByID')
 api.add_resource(RecipeById, '/recipes/<int:id>', endpoint='recipeById')
 
 if __name__ == '__main__':
-    app.run(port=5555,debug=True)
+    app.run(port=8000,debug=True)

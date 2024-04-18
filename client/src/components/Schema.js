@@ -9,13 +9,13 @@ export const signupValidationSchema = Yup.object().shape({
   email: Yup.string()
     .email("Please enter a valid email address")
     .required("Email is required"),
-  password: Yup.string()
-    .min(7)
-    .required("Please Enter your password")
+    password: Yup.string()
+    .min(8, "Password must be at least 8 characters")
     .matches(
-      /^(?=.*[A-Z])(?=.*[a-z]{4})(?=.*\d{2}).{7}$/,
-      "Must Contain  7 characters ,1 uppercase letter,4 lowercase letters & 2 numeric digits"
-    ),
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
+      "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character"
+    )
+    .required("Please Enter your password"),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password"), null], "password must match")
     .required("please confirm your password"),

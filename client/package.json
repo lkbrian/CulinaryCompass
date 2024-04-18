@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "proxy": "http://127.0.0.1:5555",
   "scripts": {
     "dev": "PORT=4000 vite",
     "build": "vite build",
@@ -17,10 +16,11 @@
     "@emotion/styled": "^11.11.5",
     "formik": "^2.4.5",
     "framer-motion": "^11.0.28",
+    "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",
-    "react-router-dom": "^6.0.2",
+    "react-router-dom": "^6.22.3",
     "yup": "^1.4.0"
   },
   "devDependencies": {

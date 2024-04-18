@@ -23,7 +23,7 @@ function Recipes() {
         }
       };
       fetchRecipes();
-    }, 4000);
+    }, 1000);
   }, [url]);
   console.log(recipes);
 
