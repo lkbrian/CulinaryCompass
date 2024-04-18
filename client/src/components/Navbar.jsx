@@ -25,15 +25,6 @@ function Navbar() {
   const btnRef = React.useRef();
   const { user } = useContext(SessionContext);
 
-
-  //  function handleLogoutClick() {
-  //   fetch("/api/logout", { method: "DELETE" }).then((r) => {
-  //     if (r.ok) {
-  //       setUser(null);
-  //     }
-  //   });
-  // }
-
   return (
     <Flex
       px={{ base: 4, lg: 10 }}
