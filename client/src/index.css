@@ -1,0 +1,65 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+}
+html {
+    font-family: "Lexend";
+  }
+
+/* Navbar */
+.links {
+    font-weight: 550;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+  }
+  
+  .links:hover,
+  .links.active {
+    color: #FFCA3A;
+  }
+  
+  .links:hover::after,
+  .links.active::after
+  {
+    content: "";
+    width: 60%;
+    height: 2px;
+    margin-left: 20%;
+    background: #FFCA3A;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    border-radius: 4px;
+  }
+/* Navbar Drawer */
+.drawer-link {
+    font-weight: 500;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+    position: relative;
+    padding: 8px;
+    border-radius: .7rem;
+  }
+  
+  .drawer-link:hover,
+  .drawer-link.active {
+    background: #FFCA3A;
+    font-weight: 550;
+  }
+  .drawer-link:hover::after,
+  .drawer-link.active::after {
+    content: "";
+    width: 100%;
+    height: 100%; 
+    background: none; 
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    border-radius: 4px;
+  }
+  
