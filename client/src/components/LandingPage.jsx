@@ -1,5 +1,5 @@
 import { Box, Heading, Text } from "@chakra-ui/react";
-import { useEffect, useState, } from "react";
+import { useEffect, useState } from "react";
 import Auth from "./Auth";
 import { useNavigate } from "react-router-dom";
 import wave from "../assets/wave.png"

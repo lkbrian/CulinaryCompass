@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { signupValidationSchema, loginValidationSchema } from "./Schema";
 import {
   Box,
@@ -29,8 +28,11 @@ import {
   ViewIcon,
   ViewOffIcon,
 } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function UserAuth() {
+const navigate = useNavigate()
   //modal states
   const [showPassword, setShowPassword] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -65,9 +67,9 @@ function UserAuth() {
     });
   };
 
-  const showToastLogIn = (name) => {
+  const showToastLogIn = () => {
     toast({
-      title: `${name}, Welcome Ratatoullie!`,
+      title: `Welcome!`,
       description: "You've successfully logged in.",
       status: "info",
       duration: 5000,
@@ -94,9 +96,11 @@ function UserAuth() {
       if (response.ok) {
         // Handle successful login/signup
         if (activeForm === "signup") {
+        navigate('/home')
           // Call showToast for sign-up
           showToast(responseData.username);
         } else {
+        navigate('/home')
           // Call showToastLogIn for login
           showToastLogIn(responseData.username);
         }

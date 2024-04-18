@@ -9,35 +9,35 @@ import {
   Container,
   Stack,
 } from "@chakra-ui/react";
-import {useState,useEffect} from 'react'
+// import {useState,useEffect} from 'react'
 import hero_img from "../assets/burger.png";
 import chef_img from "../assets/plated.png";
 import { Link } from "react-router-dom"; 
 
 function Home() {
-  const [user, setUser] = useState(null);
+//   const [user, setUser] = useState(null);
 
-useEffect(() => {
-  const fetchSession = async () => {
-    try {
-      const response = await fetch("/check_session");
-      if (response.ok) {
-        const user = await response.json();
-        setUser(user);
-      }
-    } catch (error) {
-      console.error("Error fetching session data:", error);
-    }
-  };
+// useEffect(() => {
+//   const fetchSession = async () => {
+//     try {
+//       const response = await fetch("/check_session");
+//       if (response.ok) {
+//         const user = await response.json();
+//         setUser(user);
+//       }
+//     } catch (error) {
+//       console.error("Error fetching session data:", error);
+//     }
+//   };
 
-  fetchSession();
-}, []);
+//   fetchSession();
+// }, []);
 
 
   return (
     <Box minH={"100vh"} bg={"#fff"} color={"#0a303d"}>
       {/* Hero Section */}
-      <Navbar user={user} setUser={setUser}/>
+      <Navbar />
       <Box py={20} pb={40}>
         <Container maxW="container.xl">
           <Flex

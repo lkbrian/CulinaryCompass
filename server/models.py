@@ -23,8 +23,8 @@ class User(db.Model, SerializerMixin):
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String, nullable=False)  # Changed to String
-    bio = db.Column(db.String)
-    img_url = db.Column(db.String)
+    bio = db.Column(db.String,default='')
+    img_url = db.Column(db.String,default='')
 
     # Relationships
     recipes = db.relationship("Recipe", back_populates="user")
