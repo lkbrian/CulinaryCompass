@@ -17,7 +17,7 @@ import {
 import logo from "../assets/logo.png";
 import { NavLink } from "react-router-dom";
 
-import UserAuth from "./UserAuth";
+// import UserAuth from "./UserAuth";
 
 
 import { CgMenuRightAlt } from "react-icons/cg";
@@ -27,15 +27,6 @@ function Navbar() {
   const btnRef = React.useRef();
   return (
 
-    <Flex px={10} bg={'none'} justify={"space-between"}color={"#0a303d"}>
-      <Box w={"300px"}><Image src={logo} objectFit={"contain"} /></Box>
-      <Flex gap={6} letterSpacing={1} fontWeight={600} align={"center"}>
-    <NavLink>Home</NavLink>
-    <NavLink>Recipies</NavLink>
-    <NavLink>Collection</NavLink>
-    <NavLink>Create recipe</NavLink>
-    <NavLink>User</NavLink>
-    <UserAuth/>
     <Flex px={{base:4,lg:10}} bg={"none"} align={"center"} justify={"space-between"} color={"#0a303d"}>
       <Box w={{base:"190px", md:"300px"}}>
         <Image src={logo} objectFit={"contain"} />
