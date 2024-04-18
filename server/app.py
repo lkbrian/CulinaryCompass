@@ -14,44 +14,22 @@ class Home(Resource):
 
 class SignUp(Resource):
     def post(self):
-        username = request.json.get('username')
-        email = request.json.get('email')
-        password = request.json.get('password')
+        username = request.get_json().get('username')
+        email = request.get_json().get('email')
+        password = request.get_json().get('password')
 
-        if not (username and email and password):
-            return jsonify({'error': 'Missing required fields'}), 400
-
-        hashed_password = generate_password_hash(password)
-
-        new_user = User(username=username, email=email,
-                        password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-
-        return redirect("/")    
-class Login(Resource):#Brian
-    def post(self):
-                
-        username = request.get_json()['username']
-        password = request.get_json()['password']
-
-        user = User.query.filter(User.username == username).first()
-
-        if user.authenticate(password):
-
-            session['user_id'] = user.id
-            return user.to_dict(), 201
-
-        return {'error': '401 Unauthorized'}, 401
-    
-class Logout(Resource):#Allen
-    def logout(self):
-        if session.get('user_id'):
-            session['user_id'] = None
-            return {},204
-        return {"Error":"Unauthorized"},401
-
-class Check_session(Resource):#Collins
+        if username and email and password and not User.query.filter_by(username=username).first():
+            new_user = User(
+                username = username,
+                email = email
+            )
+            new_user.password_hash = password
+            db.session.add(new_user)
+            db.session.commit()
+            session['user_id'] = new_user.id
+            return new_user.to_dict(),201
+        
+class Check_session(Resource):
     def get(self):
         
         user_id = session['user_id']
@@ -60,7 +38,29 @@ class Check_session(Resource):#Collins
             return user.to_dict(), 200
         
         return {}, 401    
-class Create_recipes(Resource):#Brian
+    
+class Login(Resource):
+    def post(self):
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        if not username or not password:
+            return {'error': 'Username and password are required'}, 400
+        user = User.query.filter_by(username=username).first()
+        if not user or not user.authenticate(password):
+            return {'error': 'Invalid username or password'}, 401
+        session['user_id'] = user.id
+        return {'success': 'Logged in successfully', 'user': user.to_dict()}, 200
+    
+class Logout(Resource):
+    def logout(self):
+        if session.get('user_id'):
+            session['user_id'] = None
+            return {},204
+        return {"Error":"Unauthorized"},401
+
+
+class Create_recipes(Resource):
     def post(self):
         title = request.get_json()['title']
         cook_time = request.get_json()['cook_time']
@@ -73,7 +73,7 @@ class Create_recipes(Resource):#Brian
         db.session.add(recipe)
         db.session.commit()
         # return {'error': '401 Unauthorized'}, 422
-class Recipes(Resource):#Allen
+class Recipes(Resource):
     def get(self):
         recipe = [recipe.to_dict() for recipe in Recipe.query.all()]
         response = make_response(
@@ -81,14 +81,14 @@ class Recipes(Resource):#Allen
              ,200)
         return response
 
-class Favourite(Resource):#Collins
+class Favourite(Resource):
     def get(self):
         favourite_recipe = Recipe.query.filter(Recipe.favorite == True).all()
         recipe_data  = [recipe.to_dict() for recipe in favourite_recipe]
         response = make_response(jsonify(recipe_data),200)
         return response 
     pass
-class FavouriteByID(Resource):#Collins
+class FavouriteByID(Resource):
     def get(self,id):
         favourite_recipes = Recipe.query.filter(Recipe.favorite == True).all()
         if not favourite_recipes:
@@ -99,14 +99,14 @@ class FavouriteByID(Resource):#Collins
 
 
     
-class Collection(Resource):#Collins
+class Collection(Resource):
     def get(self):
         collection_recipe = Recipe.query.filter(Recipe.collection == True).all()
         recipe_data = [recipe.to_dict() for recipe in collection_recipe]
         response = make_response(jsonify(recipe_data),200)
         return response
        
-class CollectionByID(Resource):#Brian
+class CollectionByID(Resource):
     def get(self,id):
         collection_recipes = Recipe.query.filter(Recipe.collection == False).all()
         if not collection_recipes:
@@ -116,7 +116,7 @@ class CollectionByID(Resource):#Brian
         response = make_response(jsonify(recipes_data),200)
         return response
 
-class RecipeByID(Resource):#Allen
+class RecipeByID(Resource):
     def get(self,id):
         recipe = Recipe.query.filter(Recipe.id == id).first()
         if not recipe:
@@ -136,10 +136,10 @@ class RecipeById(Resource):
     
 
 api.add_resource(Home, "/")
+api.add_resource(Check_session,'/check_session',endpoint='check_session')
 api.add_resource(SignUp, "/signup", endpoint="signup")
 api.add_resource(Login,"/login",endpoint="login")
 api.add_resource(Logout,"/logout",endpoint="logout")
-api.add_resource(Check_session,'/check_session',endpoint='check_session')
 api.add_resource(Create_recipes,'/create_recipes',endpoint = 'create_recipes')
 api.add_resource(Recipes,'/recipes',endpoint ='recipes')
 api.add_resource(Favourite, '/favourites', endpoint='favourite')
