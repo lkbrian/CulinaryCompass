@@ -22,14 +22,6 @@ function Navbar({ user,setUser }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
-  function handleClick (){
-    fetch("/api/logout", { method: "DELETE" }).then((r) => {
-      if (r.ok) {
-        setUser(null);
-      }
-    });
-  }
-
   return (
     <Flex
       px={{ base: 4, lg: 10 }}
@@ -39,6 +31,7 @@ function Navbar({ user,setUser }) {
       color={"#0a303d"}
     >
       <Box w={{ base: "190px", md: "300px" }}>
+
         <Image src={logo} objectFit={"contain"} />
       </Box>
 
@@ -64,18 +57,6 @@ function Navbar({ user,setUser }) {
             <NavLink className={"links"} to="/create">
               Create
             </NavLink>
-            <Button
-              alignSelf={"center"}
-              w={"150px"}
-              bg={"#FFCA3A"}
-              type="submit"
-              variant={"ghost"}
-              onClick={handleClick}
-              _hover={{ background: "#FFCA3A" }}
-              // isLoading={isSubmitting}
-            >
-              Logout
-            </Button>
           </Flex>
           <Flex display={{ base: "flex", lg: "none" }}>
             <Box
