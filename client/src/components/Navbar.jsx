@@ -22,6 +22,10 @@ function Navbar({ user,setUser }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
 
+
+    <Flex px={{base:4,lg:10}} bg={"none"} align={"center"} justify={"space-between"} color={"#0a303d"}>
+      <Box w={{base:"190px", md:"300px"}}>
+
   return (
     <Flex
       px={{ base: 4, lg: 10 }}
@@ -31,6 +35,7 @@ function Navbar({ user,setUser }) {
       color={"#0a303d"}
     >
       <Box w={{ base: "190px", md: "300px" }}>
+
         <Image src={logo} objectFit={"contain"} />
       </Box>
 
