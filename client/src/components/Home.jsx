@@ -1,3 +1,4 @@
+
 import Navbar from "./Navbar";
 import {
   Box,
@@ -15,25 +16,6 @@ import chef_img from "../assets/plated.png";
 import { Link } from "react-router-dom"; 
 
 function Home() {
-//   const [user, setUser] = useState(null);
-
-// useEffect(() => {
-//   const fetchSession = async () => {
-//     try {
-//       const response = await fetch("/check_session");
-//       if (response.ok) {
-//         const user = await response.json();
-//         setUser(user);
-//       }
-//     } catch (error) {
-//       console.error("Error fetching session data:", error);
-//     }
-//   };
-
-//   fetchSession();
-// }, []);
-
-
   return (
     <Box minH={"100vh"} bg={"#fff"} color={"#0a303d"}>
       {/* Hero Section */}
