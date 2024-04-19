@@ -6,14 +6,16 @@ import {
   ListItem,
   UnorderedList,
   Image,
+  Avatar,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import { MdOutlineFavorite } from "react-icons/md";
-import { BsFillBookmarksFill } from "react-icons/bs";
-import { SiClockify } from "react-icons/si";
-import banner from "../assets/banner.jpg";
+
+import { AiFillHeart } from "react-icons/ai";
+import { BsBookmarksFill } from "react-icons/bs";
+import banner from '../assets/banner.jpg'
+
 
 function RecipeByID() {
   const [item, setItem] = useState(null);
@@ -108,10 +110,12 @@ function RecipeByID() {
         <>
           <Box
             boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-            maxW={{ base: "80vw", md: "50vw" }}
+            maxW={{ base: "90vw", md: "80vw",lg:"75vh" }}
             h={200}
             m={"auto"}
-            mt={10}
+
+            mt={10}        
+
           >
             <Image
               src={banner}
@@ -124,9 +128,9 @@ function RecipeByID() {
           <Box
             borderRadius={"md"}
             boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-            maxW={{ base: "80vw", md: "50vw" }}
+            maxW={{ base: "90vw", md: "80vw",lg:"75vh" }}
             m={"auto"}
-            mt={4}
+            my={4}
             p={4}
             display={"flex"}
             flexDir={"column"}
@@ -152,11 +156,19 @@ function RecipeByID() {
                 </button>
               </Flex>
             </Flex>
-            <Flex gap={4} letterSpacing={1}>
-              <Text fontSize={".8rem"}>Category: Breakfast, Lunch, Dinner</Text>
-              <Text fontSize={".8rem"}>Tags: Gluten free</Text>
-            </Flex>
+            <Box gap={4} letterSpacing={1}>
+              <Avatar
+                src={item.user.img_url}
+                name={item.user.username}
+                size="lg"
+                mb={4}
+              />
+              <Text fontWeight={'bold'} size="md" mb={2}>
+                Authored by:<br/><Text fontWeight={'normal'} as={'sup'}>{item.user.username}</Text>
+              </Text>
+            </Box>
             <Box>
+
               <Heading letterSpacing={2} fontSize={"xl"}>
                 Ingredients
               </Heading>
@@ -174,18 +186,8 @@ function RecipeByID() {
               Cook time
             </Heading>
             <Flex alignItems={"center"} gap={4}>
-              <SiClockify />
               <Text>{item.cook_time}</Text>
-            </Flex>
-            <Flex gap={4} align={"center"} float={"right"}>
-              <Image
-                borderRadius="full"
-                boxSize="40px"
-                src={item.user.img_url}
-                alt={item.user.username}
-              />{" "}
-              <Text>{item.user.username}</Text>
-            </Flex>
+            </Flex>           
           </Box>
         </>
       )}

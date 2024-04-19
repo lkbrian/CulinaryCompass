@@ -7,6 +7,18 @@ from models import User, Recipe
 from werkzeug.security import generate_password_hash
 
 
+@app.before_request
+def check_if_logged_in():
+    access = [
+        'signup',
+        'login',
+        'check_session'
+    ]
+
+    if (request.endpoint) not in access and (not session.get('user_id')):
+        return {'error': '401 Unauthorized'}, 401
+
+
 class Home(Resource):
     def get(self):
         return 'Hello World!'
@@ -32,7 +44,7 @@ class SignUp(Resource):
 class Check_session(Resource):
     def get(self):
         
-        user_id = session['user_id']
+        user_id = session.get('user_id')
         if user_id:
             user = User.query.filter(User.id == user_id).first()
             return user.to_dict(), 200
@@ -53,11 +65,10 @@ class Login(Resource):
         return {'success': 'Logged in successfully', 'user': user.to_dict()}, 200
     
 class Logout(Resource):
-    def logout(self):
-        if session.get('user_id'):
-            session['user_id'] = None
-            return {},204
-        return {"Error":"Unauthorized"},401
+    def delete(self):
+        session['user_id']=None
+        return {},204
+
 
 
 
@@ -154,7 +165,43 @@ class RecipeByID(Resource):
             return {"Error": f'Recipe {id} not found'}, 404
         db.session.delete(recipe)
         db.session.commit()
+
+        return {'message':'Recipe deleted'},204
+
+
+class UpdateUser(Resource):
+    def patch(self, id):
+        try:
+            user = User.query.filter(User.id == id).first()
+            if not user:
+                return {'error': f'user {id} is not found'}, 404
+
+            data = request.json
+            for key, value in data.items():
+                setattr(user, key, value)
+            db.session.commit()
+            return {'message': 'User profile updated successfully'}, 200
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 500
+        
+    def delete(self, id):
+        try:
+            user = User.query.filter(User.id == id).first()
+            if not user:
+                return {'error': f'user {id} is not found'}, 404
+
+            # Delete the user from the database
+            db.session.delete(user)
+            db.session.commit()
+
+            return {'message': 'User deleted successfully'}, 200
+        except Exception as e:
+            db.session.rollback()
+            return {'error': str(e)}, 500
+
         return {'message': 'Recipe deleted'}, 204
+
 
 
 api.add_resource(Home, "/")
