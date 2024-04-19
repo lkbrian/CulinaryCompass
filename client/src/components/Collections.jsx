@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Box, Text, Img, Flex } from "@chakra-ui/react";
+import { Box, Text, Img,Flex } from "@chakra-ui/react";
 import Navbar from "./Navbar";
 
-const Favorite = () => {
+const Collections = () => {
   const [data, setData] = useState();
-  const apiUrl = `/api/favourites`;
+  const apiUrl = `/api/collections`;
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,4 +61,4 @@ const Favorite = () => {
   );
 };
 
-export default Favorite;
+export default Collections;

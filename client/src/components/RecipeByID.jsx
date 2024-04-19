@@ -8,14 +8,14 @@ import {
   Image,
   Avatar,
 } from "@chakra-ui/react";
+import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-
+import { Link } from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
 import { BsBookmarksFill } from "react-icons/bs";
-import banner from '../assets/banner.jpg'
-
+import banner from "../assets/banner.jpg";
 
 function RecipeByID() {
   const [item, setItem] = useState(null);
@@ -108,14 +108,27 @@ function RecipeByID() {
         </Flex>
       ) : (
         <>
+          <Link
+            to="/all_recipes"
+            // style={{ textDecoration: "none" }}
+          >
+            <Box
+              px={8}
+              py={4}  
+            >
+              <BsArrowLeftCircleFill
+                size={"2rem"}
+                borderRadius='full'
+              />
+            </Box>
+          </Link>
+
           <Box
             boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-            maxW={{ base: "90vw", md: "80vw",lg:"75vh" }}
+            maxW={{ base: "90vw", md: "80vw", lg: "75vh" }}
             h={200}
             m={"auto"}
-
-            mt={10}        
-
+            mt={10}
           >
             <Image
               src={banner}
@@ -128,7 +141,7 @@ function RecipeByID() {
           <Box
             borderRadius={"md"}
             boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-            maxW={{ base: "90vw", md: "80vw",lg:"75vh" }}
+            maxW={{ base: "90vw", md: "80vw", lg: "75vh" }}
             m={"auto"}
             my={4}
             p={4}
@@ -142,14 +155,14 @@ function RecipeByID() {
               </Heading>
               <Flex gap={6}>
                 <button onClick={handleToggleFavouriteClick}>
-                  <MdOutlineFavorite
+                  <AiFillHeart
                     size="1.7rem"
                     color={favorite ? "red" : "black"}
                   />
                 </button>
 
                 <button onClick={handleToggleCollectionClick}>
-                  <BsFillBookmarksFill
+                  <BsBookmarksFill
                     size={"1.7rem"}
                     color={collection ? "	#1DA1F2" : "black"}
                   />
@@ -163,12 +176,15 @@ function RecipeByID() {
                 size="lg"
                 mb={4}
               />
-              <Text fontWeight={'bold'} size="md" mb={2}>
-                Authored by:<br/><Text fontWeight={'normal'} as={'sup'}>{item.user.username}</Text>
+              <Text fontWeight={"bold"} size="md" mb={2}>
+                Authored by:
+                <br />
+                <Text fontWeight={"normal"} as={"sup"}>
+                  {item.user.username}
+                </Text>
               </Text>
             </Box>
             <Box>
-
               <Heading letterSpacing={2} fontSize={"xl"}>
                 Ingredients
               </Heading>
@@ -187,7 +203,7 @@ function RecipeByID() {
             </Heading>
             <Flex alignItems={"center"} gap={4}>
               <Text>{item.cook_time}</Text>
-            </Flex>           
+            </Flex>
           </Box>
         </>
       )}

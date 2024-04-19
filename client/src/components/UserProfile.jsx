@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { SessionContext } from "./SessionContext";
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+
 // import { RiLogoutCircleLine } from "react-icons/ri";
 import {
   Box,
@@ -10,7 +11,6 @@ import {
   Input,
   Button,
   Textarea,
-  Link,
   Avatar,
   Text,
   ButtonGroup,
@@ -28,7 +28,7 @@ import NotFound from "./NotFound";
 
 function UserProfile() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const btnRef = React.useRef()
+  const btnRef = React.useRef();
   const navigate = useNavigate();
   const { user, logged, setUser } = useContext(SessionContext);
 
@@ -44,7 +44,6 @@ function UserProfile() {
     setFormData({ ...formData, [name]: value });
   };
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
     fetch(`/api/users/${user.id}`, {
@@ -54,20 +53,20 @@ function UserProfile() {
       },
       body: JSON.stringify(formData),
     })
-    .then((response) => {
-      if (response.ok) {
-        // Handle successful update
-        console.log("Profile updated successfully");
-      } else {
-        // Handle errors
-        console.error("Failed to update profile");
-      }
-    })
-    .catch((error) => {
-      console.error("Error updating profile:", error);
-    });
+      .then((response) => {
+        if (response.ok) {
+          // Handle successful update
+          console.log("Profile updated successfully");
+        } else {
+          // Handle errors
+          console.error("Failed to update profile");
+        }
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+      });
   };
-  
+
   function handleLogoutClick() {
     fetch("/api/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
@@ -81,20 +80,20 @@ function UserProfile() {
       fetch(`/api/users/${user.id}`, {
         method: "DELETE",
       })
-      .then((response) => {
-        if (response.ok) {
-          // Handle successful deletion
-          console.log("Account deleted successfully");
-          navigate("/");
-          setUser(null); // Assuming setUser is a function to update the user state
-        } else {
-          // Handle errors
-          console.error("Failed to delete account");
-        }
-      })
-      .catch((error) => {
-        console.error("Error deleting account:", error);
-      });
+        .then((response) => {
+          if (response.ok) {
+            // Handle successful deletion
+            console.log("Account deleted successfully");
+            navigate("/");
+            setUser(null); // Assuming setUser is a function to update the user state
+          } else {
+            // Handle errors
+            console.error("Failed to delete account");
+          }
+        })
+        .catch((error) => {
+          console.error("Error deleting account:", error);
+        });
     }
   };
   console.log(user);
@@ -103,7 +102,7 @@ function UserProfile() {
       {logged ? (
         <>
           <WrapItem ref={btnRef} onClick={onOpen} cursor={"pointer"}>
-            <Avatar size={"sm"} bg="#0a303d" >
+            <Avatar size={"sm"} bg="#0a303d">
               <AvatarBadge boxSize="1.25em" bg="green.500" />
             </Avatar>
           </WrapItem>
@@ -112,7 +111,7 @@ function UserProfile() {
             placement="left"
             onClose={onClose}
             finalFocusRef={btnRef}
-            size={{base:'xs',md:"md"}}
+            size={{ base: "xs", md: "md" }}
           >
             <DrawerOverlay />
             <DrawerContent>
@@ -134,7 +133,12 @@ function UserProfile() {
                     </Heading>
                     <Text mb={2}>{user.email}</Text>
                     <Text mb={4}>{user.bio}</Text>
-                    <Link to="/favorites">Favorite Recipes</Link>
+                    <Link
+                      to="/favorites"
+                      style={{ textDecoration: "underline" }}
+                    >
+                      Favorite Recipes
+                    </Link>
                     <br />
                     <ButtonGroup>
                       <Button
