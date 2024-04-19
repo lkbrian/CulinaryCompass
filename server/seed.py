@@ -56,12 +56,13 @@ with app.app_context():
 
     all_recipes = []
     print("create recipe")
-    print("Associating ingredients with recipes")
+    
     for recipe_info in recipes_info:
         name = recipe_info["name"]
         description = recipe_info["description"]
         instructions = "\n".join(recipe_info["instructions"])
         cook_time = recipe_info["cook_time"]
+        img_url = recipe_info["img_url"]
 
         # Create Recipe instance
         random_user = choice(all_users)
@@ -70,12 +71,14 @@ with app.app_context():
             description=description,
             instructions=instructions,
             cook_time=cook_time,
+            img_url=img_url,
             user=random_user,
         )
         all_recipes.append(recipe)
     db.session.add_all(all_recipes)
     db.session.commit()
 
+    print("Associating ingredients with recipes")
     # Associate ingredients with the current recipe
     all_db_ingredients = Ingredient.query.all()
 

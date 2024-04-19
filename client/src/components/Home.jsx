@@ -14,7 +14,6 @@ import {
 import hero_img from "../assets/burger.png";
 import chef_img from "../assets/plated.png";
 import { Link } from "react-router-dom"; 
-import { Link } from "react-router-dom"; 
 
 function Home() {
   return (

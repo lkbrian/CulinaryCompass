@@ -95,13 +95,12 @@ const navigate = useNavigate()
       // Check if the request was successful
       if (response.ok) {
         // Handle successful login/signup
-        if (activeForm === "signup") {
-        navigate('/home')
+        if (activeForm === "signup") {        
           // Call showToast for sign-up
           showToast(responseData.username);
         } else {
-        navigate('/home')
           // Call showToastLogIn for login
+          navigate('/home')
           showToastLogIn(responseData.username);
         }
         console.log(
@@ -110,6 +109,7 @@ const navigate = useNavigate()
           responseData
         );
         // Reset form and close the modal
+        
         actions.resetForm();
         onClose();
       } else {
