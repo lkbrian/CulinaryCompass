@@ -1,4 +1,3 @@
-
 import Navbar from "./Navbar";
 import {
   Box,
@@ -13,8 +12,7 @@ import {
 // import {useState,useEffect} from 'react'
 import hero_img from "../assets/burger.png";
 import chef_img from "../assets/plated.png";
-import { Link } from "react-router-dom"; 
-import { Link } from "react-router-dom"; 
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -42,7 +40,7 @@ function Home() {
                   helpful tips to guide you in the kitchen, regardless of your
                   experience level.
                 </Text>
-                <Button bg={"#FFCA3A"} w={'35%'} as={Link} to="/all_recipes">
+                <Button bg={"#FFCA3A"} w={"35%"} as={Link} to="/all_recipes">
                   Explore Recipes
                 </Button>
               </Stack>
@@ -106,11 +104,16 @@ function Home() {
                 borderRadius="xl"
               />
             </Box>
-            <Flex flexDir={'column'} align={'center'}>
+            <Flex flexDir={"column"} align={"center"}>
               <Heading size="xl" mb={4}>
                 Discover New Flavors
               </Heading>
-              <Text fontSize="lg" letterSpacing={1} w={[500,600]} textAlign={'center'}>
+              <Text
+                fontSize="lg"
+                letterSpacing={1}
+                w={[500, 600]}
+                textAlign={"center"}
+              >
                 Break free from the routine! Our extensive recipe collection
                 caters to diverse dietary needs and preferences. Whether
                 you&apos;re a dedicated vegetarian, a health-conscious foodie,

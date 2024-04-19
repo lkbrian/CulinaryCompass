@@ -10,14 +10,21 @@ import {
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { BeatLoader } from "react-spinners";
-import { AiFillHeart } from "react-icons/ai";
-import { BsBookmarksFill } from "react-icons/bs";
+import { MdOutlineFavorite } from "react-icons/md";
+import { BsFillBookmarksFill } from "react-icons/bs";
 import { SiClockify } from "react-icons/si";
-import banner from '../assets/banner.jpg'
+import banner from "../assets/banner.jpg";
 
 function RecipeByID() {
   const [item, setItem] = useState(null);
   const [isloading, setIsLoading] = useState(true);
+  const [favorite, setFavorite] = useState(() => {
+    return localStorage.getItem("favorite") === "true";
+  });
+  const [collection, setCollection] = useState(() => {
+    return localStorage.getItem("collection") === "true";
+  });
+
   const { id } = useParams();
   const url = `/api/recipes/${id}`;
   useEffect(() => {
@@ -34,7 +41,54 @@ function RecipeByID() {
     };
     singleRecipe();
   }, [url]);
-  console.log(item);
+  // console.log(item);
+
+  useEffect(() => {
+    localStorage.setItem("favorite", favorite);
+    localStorage.setItem("collection", collection);
+  }, [favorite, collection]);
+
+  ///Toogle from liked to unlike & sends a PATCH request
+  async function handleToggleFavouriteClick() {
+    try {
+      const newFavorite = !favorite; // variable that toggle the favorite status
+      const res = await fetch(`/api/recipes/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ favorite: newFavorite }),
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP Error ! status: ${res.status}`);
+      }
+
+      setFavorite(newFavorite);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+  // collection's patch
+  async function handleToggleCollectionClick() {
+    try {
+      const newCollection = !collection; // variable that toggle the collection status
+      const res = await fetch(`/api/recipes/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ collection: newCollection }),
+      });
+      if (!res.ok) {
+        throw new Error(`HTTP Error ! status: ${res.status}`);
+      }
+
+      setCollection(newCollection);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   return (
     <>
       {isloading ? (
@@ -57,8 +111,16 @@ function RecipeByID() {
             maxW={{ base: "80vw", md: "50vw" }}
             h={200}
             m={"auto"}
-            mt={10}           
-          ><Image src={banner} w="100%" h="100%" borderRadius={'md'} objectFit={'cover'}/></Box>
+            mt={10}
+          >
+            <Image
+              src={banner}
+              w="100%"
+              h="100%"
+              borderRadius={"md"}
+              objectFit={"cover"}
+            />
+          </Box>
           <Box
             borderRadius={"md"}
             boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
@@ -75,8 +137,19 @@ function RecipeByID() {
                 {item.title}
               </Heading>
               <Flex gap={6}>
-                <AiFillHeart size={"2rem"} />{" "}
-                <BsBookmarksFill size={"1.7rem"} />
+                <button onClick={handleToggleFavouriteClick}>
+                  <MdOutlineFavorite
+                    size="1.7rem"
+                    color={favorite ? "red" : "black"}
+                  />
+                </button>
+
+                <button onClick={handleToggleCollectionClick}>
+                  <BsFillBookmarksFill
+                    size={"1.7rem"}
+                    color={collection ? "	#1DA1F2" : "black"}
+                  />
+                </button>
               </Flex>
             </Flex>
             <Flex gap={4} letterSpacing={1}>
