@@ -28,7 +28,7 @@ const RecipeForm = () => {
             // You can send the form data to your backend API endpoint here
             // console.log(values);
             // setSubmitting(false);
-            fetch('/api/create_recipes', {
+            fetch('/api/recipes', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
