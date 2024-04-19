@@ -7,7 +7,7 @@ import Recipes from "./components/Recipes";
 import RecipeByID from "./components/RecipeByID";
 import LandingPage from "./components/LandingPage";
 import UserProfile from "./components/UserProfile";
-import Collection from "./components/Collection.jsx";
+import Collections from "./components/Collections.jsx";
 import Favorite from './components/Favorite.jsx'
 
 function App() {
@@ -21,8 +21,8 @@ function App() {
           <Route path="/all_recipes" element={<Recipes />} />
           <Route path="/home/:username" element={<UserProfile />} />
           <Route path="/all_recipes/:id" element={<RecipeByID />} />
-          <Route path="/collections" element={<Collection />} />
-          <Route path="/favourites" element={<Favorite/>}/>
+          <Route path="/collections" element={<Collections />} />
+          <Route path="/favorites" element={<Favorite />} />
         </Routes>
       </SessionProvider>
     </Router>
