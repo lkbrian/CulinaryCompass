@@ -25,6 +25,7 @@ import {
   AvatarBadge,
 } from "@chakra-ui/react";
 import NotFound from "./NotFound";
+import DeleteAccount from "./DeleteAccount";
 
 function UserProfile() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,26 +76,28 @@ function UserProfile() {
       }
     });
   }
-  const handleDelete = () => {
-    if (window.confirm("Are you sure you want to delete your account?")) {
-      fetch(`/api/users/${user.id}`, {
-        method: "DELETE",
+  // const handleDelete = () => {
+  //   console.log("Delete Account button clicked"); // Close the drawer if it's open
+  //   // if (window.confirm("Are you sure you want to delete your account?")) {
+  //   onOpen(); // Open the modal
+  // };
+
+  const handleDeleteConfirmed = () => {
+    fetch(`/api/users/${user.id}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log("Account deleted successfully");
+          navigate("/");
+          setUser(null);
+        } else {
+          console.error("Failed to delete account");
+        }
       })
-        .then((response) => {
-          if (response.ok) {
-            // Handle successful deletion
-            console.log("Account deleted successfully");
-            navigate("/");
-            setUser(null); // Assuming setUser is a function to update the user state
-          } else {
-            // Handle errors
-            console.error("Failed to delete account");
-          }
-        })
-        .catch((error) => {
-          console.error("Error deleting account:", error);
-        });
-    }
+      .catch((error) => {
+        console.error("Error deleting account:", error);
+      });
   };
   console.log(user);
   return (
@@ -140,26 +143,17 @@ function UserProfile() {
                       Favorite Recipes
                     </Link>
                     <br />
-                    <ButtonGroup>
+                    <Flex gap={6} mt={4}>
                       <Button
-                        mt={4}
                         bg="#0a303d"
                         color="#fff"
                         onClick={handleLogoutClick}
                       >
                         Logout
                       </Button>
-                      <Button
-                        mt={4}
-                        colorScheme="red"
-                        color="#fff"
-                        onClick={handleDelete}
-                      >
-                        Delete Account
-                      </Button>
-                    </ButtonGroup>
+                      <DeleteAccount onDeleteAccount={handleDeleteConfirmed} />
+                    </Flex>
                   </Box>
-
                   {/* Profile Update Form */}
                   <Box>
                     <Heading size="md" mb={4}>
@@ -208,7 +202,7 @@ function UserProfile() {
           </Drawer>
         </>
       ) : (
-        <NotFound />
+        <Text>User not Found</Text>
       )}
     </>
   );

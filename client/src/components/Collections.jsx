@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Text, Img,Flex } from "@chakra-ui/react";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 
 const Collections = () => {
   const [data, setData] = useState();
@@ -26,6 +27,8 @@ const Collections = () => {
         {data?.map((recipe) => (
           <Box
             key={recipe.id}
+            as={Link}
+            to={`/all_recipes/${recipe.id}`}
             background={"#fff"}
             borderRadius={"md"}
             boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}

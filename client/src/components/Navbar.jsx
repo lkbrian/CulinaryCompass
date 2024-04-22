@@ -53,22 +53,23 @@ function Navbar() {
         <NavLink className={"links"} to="/create">
           Create
         </NavLink>
-      
-      <UserProfile/>
+
+        <UserProfile />
       </Flex>
       <Flex display={{ base: "flex", lg: "none" }}>
         <Box
           cursor={"pointer"}
           borderRadius={"8px"}
-          
           bg={"none"}
-          
           display={"flex"}
-          justify={'center'}
-          align={'center'}
+          justify={"center"}
+          align={"center"}
           gap={8}
-        ><UserProfile/>
-          <CgMenuRightAlt onClick={onOpen} ref={btnRef} color={"#0a303d"} fontSize={"2rem"} />
+        >
+          <UserProfile />
+          <Box onClick={onOpen} ref={btnRef}>
+            <CgMenuRightAlt color={"#0a303d"} fontSize={"2rem"} />
+          </Box>
         </Box>
         <Drawer
           isOpen={isOpen}

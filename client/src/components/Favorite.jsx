@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, Text, Img, Flex } from "@chakra-ui/react";
 import Navbar from "./Navbar";
+import { Link } from "react-router-dom";
 
 const Favorite = () => {
   const [data, setData] = useState();
@@ -25,6 +26,8 @@ const Favorite = () => {
       <Flex flexDir={"row"} flexWrap={"wrap"} m={"auto"} ml={10} gap={10}>
         {data?.map((recipe) => (
           <Box
+            as={Link}
+            to={`/all_recipes/${recipe.id}`}
             key={recipe.id}
             background={"#fff"}
             borderRadius={"md"}

@@ -195,12 +195,12 @@ class UpdateUser(Resource):
             db.session.delete(user)
             db.session.commit()
 
-            return {'message': 'User deleted successfully'}, 200
+            return {'message': 'User deleted successfully'}, 204
         except Exception as e:
             db.session.rollback()
             return {'error': str(e)}, 500
 
-        return {'message': 'Recipe deleted'}, 204
+        
 
 
 
@@ -218,4 +218,4 @@ api.add_resource(RecipeByID, '/recipes/<int:id>', endpoint='recipeByID')
 
 
 if __name__ == '__main__':
-    app.run(port=8000,debug=True)
+    app.run(port=5555,debug=True)
