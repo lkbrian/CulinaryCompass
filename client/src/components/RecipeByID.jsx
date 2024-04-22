@@ -112,14 +112,8 @@ function RecipeByID() {
             to="/all_recipes"
             // style={{ textDecoration: "none" }}
           >
-            <Box
-              px={8}
-              py={4}  
-            >
-              <BsArrowLeftCircleFill
-                size={"2rem"}
-                borderRadius='full'
-              />
+            <Box px={8} py={4}>
+              <BsArrowLeftCircleFill size={"2rem"} borderRadius="full" />
             </Box>
           </Link>
 
@@ -164,7 +158,7 @@ function RecipeByID() {
                 <button onClick={handleToggleCollectionClick}>
                   <BsBookmarksFill
                     size={"1.7rem"}
-                    color={collection ? "	#1DA1F2" : "black"}
+                    color={collection ? "#1DA1F2	" : "black"}
                   />
                 </button>
               </Flex>
