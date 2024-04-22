@@ -67,9 +67,9 @@ const navigate = useNavigate()
     });
   };
 
-  const showToastLogIn = () => {
+  const showToastLogIn = (name) => {
     toast({
-      title: `Welcome!`,
+      title: `${name}, Welcome!`,
       description: "You've successfully logged in.",
       status: "info",
       duration: 5000,
@@ -77,55 +77,108 @@ const navigate = useNavigate()
       position: "top",
     });
   };
+const handleSubmit = async (values, actions) => {
+  const apiUrl = activeForm === "signup" ? "/api/signup" : "/api/login";
+  try {
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
 
-  const handleSubmit = async (values, actions) => {
-    const apiUrl = activeForm === "signup" ? "/api/signup" : "/api/login";
-    try {
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      });
+    // Parse the JSON response
+    const responseData = await response.json();
 
-      // Parse the JSON response
-      const responseData = await response.json();
-
-      // Check if the request was successful
-      if (response.ok) {
-        // Handle successful login/signup
-        if (activeForm === "signup") {
-        navigate('/home')
-          // Call showToast for sign-up
-          showToast(responseData.username);
-        } else {
-        navigate('/home')
-          // Call showToastLogIn for login
-          showToastLogIn(responseData.username);
-        }
-        console.log(
-          activeForm === "signup" ? "Signup" : "Login",
-          "successful:",
-          responseData
-        );
-        // Reset form and close the modal
-        actions.resetForm();
-        onClose();
+    // Check if the request was successful
+    if (response.ok) {
+      // Handle successful login/signup
+      if (activeForm === "signup") {
+        // Call showToast for sign-up
+        showToast(responseData.username);
       } else {
-        // Handle errors
-        console.error(
-          activeForm === "signup" ? "Signup" : "Login",
-          "failed:",
-          responseData.error
-        );
+        // Call showToastLogIn for login
+        if (responseData.username) {
+          console.log("responseData.username:", responseData.username);
+          showToastLogIn(responseData.username);
+        } else {
+          console.error("No username found in response data:", responseData);
+        }
+        navigate("/home");
+        window.location.reload()
       }
-    } catch (error) {
-      console.error("Error:", error);
-    } finally {
-      actions.setSubmitting(false);
+      console.log(
+        activeForm === "signup" ? "Signup" : "Login",
+        "successful:",
+        responseData
+      );
+      // Reset form and close the modal
+      actions.resetForm();
+      onClose();
+    } else {
+      // Handle errors
+      console.error(
+        activeForm === "signup" ? "Signup" : "Login",
+        "failed:",
+        responseData.error
+      );
     }
-  };
+  } catch (error) {
+    console.error("Error:", error);
+  } finally {
+    actions.setSubmitting(false);
+  }
+};
+
+  // const handleSubmit = async (values, actions) => {
+  //   const apiUrl = activeForm === "signup" ? "/api/signup" : "/api/login";
+  //   try {
+  //     const response = await fetch(apiUrl, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(values),
+  //     });
+
+  //     // Parse the JSON response
+  //     const responseData = await response.json();
+
+  //     // Check if the request was successful
+  //     if (response.ok) {
+  //       // Handle successful login/signup
+  //       if (activeForm === "signup") {        
+  //         // Call showToast for sign-up
+  //         showToast(responseData.username);
+  //       } else {
+  //         // Call showToastLogIn for login
+  //         navigate('/home')
+  //         showToastLogIn(responseData.username);
+  //       }
+  //       console.log(
+  //         activeForm === "signup" ? "Signup" : "Login",
+  //         "successful:",
+  //         responseData
+  //       );
+  //       // Reset form and close the modal
+        
+  //       actions.resetForm();
+  //       onClose();
+  //     } else {
+  //       // Handle errors
+  //       console.error(
+  //         activeForm === "signup" ? "Signup" : "Login",
+  //         "failed:",
+  //         responseData.error
+  //       );
+  //     }
+  //   } catch (error) {
+  //     console.error("Error:", error);
+  //   } finally {
+  //     actions.setSubmitting(false);
+  //   }
+  // };
 
   const handleFormChange = (formType) => {
     setActiveForm(formType);

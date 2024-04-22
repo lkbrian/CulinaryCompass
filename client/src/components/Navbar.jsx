@@ -1,7 +1,6 @@
-import React, {useContext} from "react";
+import React from "react";
 import {
   Box,
-  Avatar,
   Flex,
   Text,
   Image,
@@ -13,17 +12,15 @@ import {
   DrawerContent,
   DrawerCloseButton,
   useDisclosure,
-  WrapItem,
 } from "@chakra-ui/react";
 import logo from "../assets/logo.png";
-import { Link, NavLink } from "react-router-dom";
+import {  NavLink } from "react-router-dom";
 import { CgMenuRightAlt } from "react-icons/cg";
-import { SessionContext } from "./SessionContext.jsx";
+import UserProfile from "./UserProfile.jsx";
 
 function Navbar() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = React.useRef();
-  const { user } = useContext(SessionContext);
 
   return (
     <Flex
@@ -50,26 +47,29 @@ function Navbar() {
         <NavLink className={"links"} to="/all_recipes">
           Recipes
         </NavLink>
-        <NavLink className={"links"} to="/collection">
+        <NavLink className={"links"} to="/collections">
           Collection
         </NavLink>
         <NavLink className={"links"} to="/create">
           Create
         </NavLink>
-      
-        <WrapItem as={Link} to={`/home/${user ? user.username:"default"}`}>
-          <Avatar name="Dan Abrahmov" src="https://bit.ly/dan-abramov" />
-        </WrapItem>
+
+        <UserProfile />
       </Flex>
       <Flex display={{ base: "flex", lg: "none" }}>
         <Box
           cursor={"pointer"}
           borderRadius={"8px"}
-          ref={btnRef}
           bg={"none"}
-          onClick={onOpen}
+          display={"flex"}
+          justify={"center"}
+          align={"center"}
+          gap={8}
         >
-          <CgMenuRightAlt color={"#0a303d"} fontSize={"2rem"} />
+          <UserProfile />
+          <Box onClick={onOpen} ref={btnRef}>
+            <CgMenuRightAlt color={"#0a303d"} fontSize={"2rem"} />
+          </Box>
         </Box>
         <Drawer
           isOpen={isOpen}
@@ -115,7 +115,7 @@ function Navbar() {
               </NavLink>
               <NavLink
                 className={"drawer-link"}
-                to={"/collection"}
+                to={"/collections"}
                 smooth="true"
                 onClick={() => {
                   onClose();

@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Flex, Img, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { HashLoader } from "react-spinners";
 import Navbar from "./Navbar";
@@ -45,30 +45,43 @@ function Recipes() {
           <Text fontWeight={500}>Please wait.Recipe data is loading</Text>
         </Flex>
       ) : (
-        <Flex flexDir={"column"} m={"auto"} p={"20px"} maxW={{ base: "90vw", md: "70vw" }}gap={4}>
-          <Flex justify={"space between"}>
-            <Heading textAlign={"center"} fontSize={"1.5rem"}>
-              Recipes Available
-            </Heading>
-          </Flex>
+        <Flex flexDir={"row"} flexWrap={"wrap"} m={"auto"} ml={10}  gap={10}>
           {recipes.map((recipe) => (
             <Box
               key={recipe.id}
               background={"#fff"}
               borderRadius={"md"}
-              minH={"80px"}
               boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
-              pl={7}
-              py={5}
               as={Link}
               to={`/all_recipes/${recipe.id}`}
-              //   align={"center"}
+              w={"400px"}
+              h={"400px"} // Set a fixed height for uniformity
+              overflow={"hidden"} // Hide overflowing content
             >
-              <Box w={"75%"}>
-                <Text fontSize={"1.6rem"} fontWeight={600}>
+              <Box h={"60%"} overflow={"hidden"}>
+                <Img
+                  w={"100%"}
+                  h={"100%"}
+                  objectFit={"cover"}
+                  src={recipe.img_url}
+                />
+              </Box>
+              <Box h={"40%"} p={4}>
+                <Text
+                  fontSize={"1.6rem"}
+                  fontWeight={600}
+                  mb={2}
+                  overflow={"hidden"}
+                  textOverflow={"ellipsis"}
+                  whiteSpace={"nowrap"}
+                >
                   {recipe.title}
                 </Text>
-                <Text fontSize={".8rem"}w={[300,400]}>{recipe.cook_time}</Text>
+                <Text
+                  fontSize={".8rem"}
+                >
+                  {recipe.description}
+                </Text>
               </Box>
             </Box>
           ))}

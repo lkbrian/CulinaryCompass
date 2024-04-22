@@ -17,14 +17,14 @@ recipe_ingredient = db.Table(
 
 class User(db.Model, SerializerMixin):
     __tablename__ = "users"
-    serialize_only = ("id", "username", "bio", "img_url")
+    serialize_only = ("id", "username","email","bio", "img_url")
     # Table columns
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String, unique=True, nullable=False)
     email = db.Column(db.String, unique=True, nullable=False)
     _password_hash = db.Column(db.String, nullable=False)  # Changed to String
-    bio = db.Column(db.String,default='')
-    img_url = db.Column(db.String,default='')
+    bio = db.Column(db.String)
+    img_url = db.Column(db.String)
 
     # Relationships
     recipes = db.relationship("Recipe", back_populates="user")
@@ -67,6 +67,8 @@ class Recipe(db.Model, SerializerMixin):
     favorite = db.Column(db.Boolean, default=False)
     collection = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    img_url = db.Column(db.String)
+
     # Relationships
     user = db.relationship("User", back_populates="recipes")
     ingredients = db.relationship(
