@@ -47,21 +47,29 @@ function UserProfile() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const updatedData = {};
+    for (const key in updatedData) {
+      if (formData[key] !== user[key]) {
+        updatedData[key] = formData[key];
+      }
+    }
     fetch(`/api/users/${user.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(updatedData),
     })
       .then((response) => {
         if (response.ok) {
           // Handle successful update
           console.log("Profile updated successfully");
+          setUser((prevUser) => ({ ...prevUser, ...formData }));
         } else {
           // Handle errors
           console.error("Failed to update profile");
         }
+        
       })
       .catch((error) => {
         console.error("Error updating profile:", error);
@@ -76,11 +84,6 @@ function UserProfile() {
       }
     });
   }
-  // const handleDelete = () => {
-  //   console.log("Delete Account button clicked"); // Close the drawer if it's open
-  //   // if (window.confirm("Are you sure you want to delete your account?")) {
-  //   onOpen(); // Open the modal
-  // };
 
   const handleDeleteConfirmed = () => {
     fetch(`/api/users/${user.id}`, {
