@@ -165,8 +165,8 @@ function RecipeByID() {
             </Flex>
             <Box gap={4} letterSpacing={1}>
               <Avatar
-                src={item.user.img_url}
-                name={item.user.username}
+                src={item.user?.img_url}
+                name={item.user?.username}
                 size="lg"
                 mb={4}
               />
@@ -174,7 +174,7 @@ function RecipeByID() {
                 Authored by:
                 <br />
                 <Text fontWeight={"normal"} as={"sup"}>
-                  {item.user.username}
+                  {item.user?.username}
                 </Text>
               </Text>
             </Box>

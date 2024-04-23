@@ -174,6 +174,7 @@ class UpdateUser(Resource):
         try:
             user = User.query.filter(User.id == id).first()
             if not user:
+                print('user not found',)
                 return {'error': f'user {id} is not found'}, 404
 
             data = request.json
@@ -215,6 +216,7 @@ api.add_resource(FavouriteByID, '/favourites/<int:id>', endpoint='favourite_by_i
 api.add_resource(Collection, '/collections', endpoint='collection')
 api.add_resource(CollectionByID, '/collections/<int:id>',endpoint='collectionById')
 api.add_resource(RecipeByID, '/recipes/<int:id>', endpoint='recipeByID')
+api.add_resource(UpdateUser, '/users/<int:id>', endpoint='UpdateUser')
 
 
 if __name__ == '__main__':
