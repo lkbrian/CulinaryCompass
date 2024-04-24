@@ -33,7 +33,11 @@ Welcome to Culinary Compass, your guide to navigating the world of culinary deli
 - Once the installations and database setup are complete, you have   multiple options for running the app:
 
 - Run Both Backend and Frontend Concurrently:
-
+- install this 
+     ``` console 
+        pip install honcho gunicorn
+- then run
+  
     ```bash
     make app
     ```
