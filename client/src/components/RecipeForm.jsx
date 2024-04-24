@@ -22,44 +22,60 @@ const RecipeForm = () => {
             description: "",
             instructions: "",
             cook_time: "",
+            ingredients: "", // Added ingredients field
           }}
           validationSchema={Yup.object({
             title: Yup.string().required("Title is required"),
             description: Yup.string().required("Description is required"),
             instructions: Yup.string().required("Instructions are required"),
             cook_time: Yup.string().required("Cook time is required"),
+            ingredients: Yup.string().required("Ingredients are required"), // Validate ingredients field
           })}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              // You can send the form data to your backend API endpoint here
-              // console.log(values);
-              // setSubmitting(false);
-              fetch("/api/recipes", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify(values),
+            // Extract ingredients from values
+            const { ingredients, ...recipeData } = values;
+
+            // Submit recipe data
+            fetch("/api/recipes", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(recipeData),
+            })
+              .then((response) => {
+                if (response.ok) {
+                  console.log("Successfully created a recipe");
+                  // If recipe submission succeeds, submit ingredients
+                  return fetch("/api/ingredients", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ ingredients }),
+                  });
+                } else {
+                  // Recipe submission failed, handle error
+                  console.error("Failed to create recipe. Please try again later.");
+                  throw new Error("Failed to create recipe.");
+                }
               })
-                .then((response) => {
-                  if (response.ok) {
-                    console.log("Succesfully created a recipee");
-                  } else {
-                    // Login failed, handle error
-                    console.error("Failed. Please check your credentials.");
-                  }
-                })
-                .catch((error) => {
-                  // Network error or other errors
-                  console.error(
-                    "An error occurred. Please try again later.",
-                    error
-                  );
-                })
-                .finally(() => {
-                  setSubmitting(false);
-                });
-            }, 400);
+              .then((response) => {
+                if (response.ok) {
+                  console.log("Successfully added ingredients");
+                } else {
+                  // Ingredient submission failed, handle error
+                  console.error("Failed to add ingredients. Please try again later.");
+                  throw new Error("Failed to add ingredients.");
+                }
+              })
+              .catch((error) => {
+                // Handle any errors
+                console.error("An error occurred:", error);
+              })
+              .finally(() => {
+                setSubmitting(false);
+              });
           }}
         >
           {({ isSubmitting }) => (
