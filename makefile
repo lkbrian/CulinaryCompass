@@ -10,11 +10,10 @@ react:
 flask:
 	cd server && python app.py
 
-migrations:
-	pass
+
 
 database:
-	cd server && python seed.py
+	cd server && flask db init && flask db migrate -m "initial migration" && flask db upgrade && python seed.py
 
 dev:
 	cd client && npm install
