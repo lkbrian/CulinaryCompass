@@ -19,7 +19,7 @@ After Cloning the Repository Follow the instructions below to get started with t
 - Run the backend installation command:
 
     ```bash
-    make frontend
+    make backend
     ```
 
 ### 3. **Performing Migrations & Seeding Database: 
