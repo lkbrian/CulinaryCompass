@@ -9,7 +9,7 @@ After Cloning the Repository Follow the instructions below to get started with t
 
 
     ```bash
-    make backend
+    make frontend
     ```
 
 ### 2. Backend Installation:
