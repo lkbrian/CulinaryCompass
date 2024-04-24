@@ -3,7 +3,7 @@ from flask import request, session,redirect,jsonify,make_response
 from flask_restful import Resource
 from sqlalchemy.exc import IntegrityError
 from config import app, db, api
-from models import User, Recipe
+from models import Ingredient, User, Recipe
 from werkzeug.security import generate_password_hash
 
 
@@ -92,7 +92,17 @@ class Recipes(Resource):
                             cook_time=cook_time, user=user)
             db.session.add(recipe)
             db.session.commit()
-        return {'error': '401 Unauthorized'}, 422
+        return {'error': '401 Unauthorized'}, 401
+    
+class Ingredients(Resource):
+    def post(self):
+        ingredient = request.get_json()['ingredients']
+        ingredient_name = Ingredient.query.filter_by(name=ingredient)
+        if ingredient and not ingredient_name:
+            new_ingredient = Ingredient(name=ingredient,quantity=None)
+            db.session.add(new_ingredient)
+            db.session.commit()
+        return {}, 204
 
 class Favourite(Resource):
     def get(self):
@@ -211,6 +221,7 @@ api.add_resource(SignUp, "/signup", endpoint="signup")
 api.add_resource(Login,"/login",endpoint="login")
 api.add_resource(Logout,"/logout",endpoint="logout")
 api.add_resource(Recipes,'/recipes',endpoint ='recipes')
+api.add_resource(Ingredients,'/ingredients',endpoint ='ingredients')
 api.add_resource(Favourite, '/favourites', endpoint='favourite')
 api.add_resource(FavouriteByID, '/favourites/<int:id>', endpoint='favourite_by_id')
 api.add_resource(Collection, '/collections', endpoint='collection')

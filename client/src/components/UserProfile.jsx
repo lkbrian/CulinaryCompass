@@ -108,7 +108,7 @@ function UserProfile() {
       {logged ? (
         <>
           <WrapItem ref={btnRef} onClick={onOpen} cursor={"pointer"}>
-            <Avatar size={"sm"} bg="#0a303d">
+            <Avatar size={"sm"} src={user.img_url} bg="#0a303d">
               <AvatarBadge boxSize="1.25em" bg="green.500" />
             </Avatar>
           </WrapItem>

@@ -1,6 +1,6 @@
 # Culinary Compass
 
-Welcome to Culinary Compass, your guide to navigating the world of culinary delights! Before you start exploring, make sure to follow these installation steps:
+After Cloning the Repository Follow the instructions below to get started with the app
 
 ## Installation
 
