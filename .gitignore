@@ -53,11 +53,8 @@ jspm_packages
 /.bundle
 
 # Virtual env metadata
-culinarycompass
-culinaryenv
-
 env
-
+migrations
 # pytest cache
 .pytest_cache
 __pycache__

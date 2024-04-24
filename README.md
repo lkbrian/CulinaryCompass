@@ -1,17 +1,62 @@
 # Culinary Compass
 
-###  User - Recipe Relationship (One-to-Many):
-Each user can have multiple recipes.
-Each recipe belongs to a single user.
+After Cloning the Repository Follow the instructions below to get started with the app
 
-### Recipe - Ingredient Relationship (Many-to-Many):
-A recipe can have multiple ingredients.
-An ingredient can be used in multiple recipes.
+## Installation
 
-### User - Rating Relationship (One-to-Many):
-Each user can create multiple ratings.
-Each rating is associated with a single user.
+ ### 1. Frontend Installation:
+  - To set up the frontend of the application, run the following command in the application's root directory
 
-### Recipe - Rating Relationship (One-to-Many):
-Each recipe can have multiple ratings.
-Each rating is associated with a single recipe.
+
+    ```bash
+    make backend
+    ```
+
+### 2. Backend Installation:
+ For the backend setup, follow these steps:
+- Create a virtual environment.
+- Activate the virtual environment.
+- Run the backend installation command:
+
+    ```bash
+    make backend
+    ```
+
+### 3. **Performing Migrations & Seeding Database: 
+ - To initialize and seed the database, execute:
+
+    ```bash
+    make database
+    ```
+
+### 4. Running the App: 
+- Once the installations and database setup are complete, you have   multiple options for running the app:
+
+- Run Both Backend and Frontend Concurrently:
+- install this 
+     ``` console 
+        pip install honcho gunicorn
+- then run
+  
+    ```bash
+    make app
+    ```
+
+    - Run Frontend Only:
+
+    ```bash
+    make react
+    ```
+
+    - Run Backend Only:
+
+    ```bash
+    make flask
+    ```
+
+## Accessing the App
+
+After completing the above steps, open your web browser and visit [localhost:4000](http://localhost:4000)
+ to start using the Culinary Compass application.
+
+Enjoy exploring the world of flavors and culinary experiences with Culinary Compass! 🍽️🌍
