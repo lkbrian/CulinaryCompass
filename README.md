@@ -5,7 +5,8 @@ After Cloning the Repository Follow the instructions below to get started with t
 ## Installation
 
  ### 1. Frontend & Backend Installation:
- For the backend setup, follow these steps:
+
+ Follow these steps:
 - Create a virtual environment.
 - Activate the virtual environment.
 - Run the backend installation command:
