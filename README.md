@@ -4,32 +4,24 @@ After Cloning the Repository Follow the instructions below to get started with t
 
 ## Installation
 
- ### 1. Frontend Installation:
-  - To set up the frontend of the application, run the following command in the application's root directory
-
-
-    ```bash
-    make backend
-    ```
-
-### 2. Backend Installation:
+ ### 1. Frontend & Backend Installation:
  For the backend setup, follow these steps:
 - Create a virtual environment.
 - Activate the virtual environment.
 - Run the backend installation command:
 
     ```bash
-    make frontend
+    make installations
     ```
 
-### 3. **Performing Migrations & Seeding Database: 
+### 2. **Performing Migrations & Seeding Database: 
  - To initialize and seed the database, execute:
 
     ```bash
     make database
     ```
 
-### 4. Running the App: 
+### 3. Running the App: 
 - Once the installations and database setup are complete, you have   multiple options for running the app:
 
 - Run Both Backend and Frontend Concurrently:

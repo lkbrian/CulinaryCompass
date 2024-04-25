@@ -86,23 +86,27 @@ class Recipes(Resource):
         cook_time = request.get_json()['cook_time']
         description = request.get_json()['description']
         instructions = request.get_json()['instructions']
+        image = request.get_json()['img_url']
         user = User.query.filter(User.id == session['user_id']).first()
         if user:
             recipe = Recipe(title=title, description=description, instructions=instructions,
-                            cook_time=cook_time, user=user)
+                            cook_time=cook_time, img_url=image,user=user)
             db.session.add(recipe)
-            db.session.commit()
-        return {'error': '401 Unauthorized'}, 401
-    
-class Ingredients(Resource):
-    def post(self):
-        ingredient = request.get_json()['ingredients']
-        ingredient_name = Ingredient.query.filter_by(name=ingredient)
-        if ingredient and not ingredient_name:
-            new_ingredient = Ingredient(name=ingredient,quantity=None)
-            db.session.add(new_ingredient)
-            db.session.commit()
-        return {}, 204
+            
+            ingredients = request.get_json()['ingredients']
+
+            for ingredient in ingredients.split('\n'):
+                ingredient_name = ingredient.strip()  
+                if ingredient_name:
+                    ingredient = Ingredient.query.filter_by(name=ingredient_name).first()
+                    if not ingredient:
+                        ingredient = Ingredient(name=ingredient_name, quantity='None')
+                        db.session.add(ingredient)
+                    recipe.ingredients.append(ingredient)
+
+            db.session.commit()            
+            return make_response(recipe.to_dict(),201)
+        
 
 class Favourite(Resource):
     def get(self):
@@ -221,7 +225,6 @@ api.add_resource(SignUp, "/signup", endpoint="signup")
 api.add_resource(Login,"/login",endpoint="login")
 api.add_resource(Logout,"/logout",endpoint="logout")
 api.add_resource(Recipes,'/recipes',endpoint ='recipes')
-api.add_resource(Ingredients,'/ingredients',endpoint ='ingredients')
 api.add_resource(Favourite, '/favourites', endpoint='favourite')
 api.add_resource(FavouriteByID, '/favourites/<int:id>', endpoint='favourite_by_id')
 api.add_resource(Collection, '/collections', endpoint='collection')
