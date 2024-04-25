@@ -9,18 +9,25 @@ After Cloning the Repository Follow the instructions below to get started with t
  Follow these steps:
 - Create a virtual environment.
 - Activate the virtual environment.
-- Run the backend installation command:
+- Run the installations command:
 
     ```bash
     make installations
     ```
 
-### 2. **Performing Migrations & Seeding Database: 
+### 2. Performing Migrations & Seeding Database: 
  - To initialize and seed the database, execute:
 
     ```bash
     make database
     ```
+    the find the databse navigate to server/instance 
+    ```console
+    └── server
+    ├── instance
+      └── database.db
+      ```
+
 
 ### 3. Running the App: 
 - Once the installations and database setup are complete, you have   multiple options for running the app:
