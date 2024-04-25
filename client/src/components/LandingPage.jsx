@@ -39,7 +39,7 @@ function LandingPage() {
         h={'40vh'}
       >
         <Heading size="xl">Welcome to Culinary Compass</Heading>
-        <Text fontSize="lg" mt={4} w={[600, 700, 800]}>
+        <Text fontSize="lg" mt={4} w={["auto",600, 700, 800]} bg={"rgba(255, 255, 255, 0.86)"}letterSpacing={1} p={4} borderRadius={"md"}>
           Dive into a vast world of flavors, ingredients, and culinary delights
           with Culinary Compass. Our platform is your gateway to an endless
           journey of taste sensations and culinary adventures. Whether
