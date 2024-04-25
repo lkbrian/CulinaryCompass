@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Text, Img, Flex } from "@chakra-ui/react";
 import { BsArrowLeftCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const Collections = () => {
   const [data, setData] = useState();
@@ -24,11 +25,7 @@ const Collections = () => {
 
   return (
     <Box>
-      <Link to="/all_recipes">
-        <Box px={8} py={4}>
-          <BsArrowLeftCircleFill size={"2rem"} borderRadius="full" />
-        </Box>
-      </Link>
+      <Navbar/>
       <Flex flexDir={"row"} flexWrap={"wrap"} m={"auto"} ml={10} gap={10}>
         {data && data.length > 0 ? (
           data.map((recipe) => (

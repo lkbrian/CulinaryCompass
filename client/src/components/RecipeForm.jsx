@@ -29,11 +29,11 @@ const RecipeForm = () => {
             description: Yup.string().required("Description is required"),
             instructions: Yup.string().required("Instructions are required"),
             cook_time: Yup.string().required("Cook time is required"),
-            ingredients: Yup.string().required("Ingredients are required"), // Validate ingredients field
+            ingredients: Yup.string().required("Ingredients are required"), 
+            img_url: Yup.string().required("Ingredients are required"), 
           })}
           onSubmit={(values, { setSubmitting }) => {
-            // Extract ingredients from values
-            const { ingredients, ...recipeData } = values;
+            // Extract ingredients from values      
 
             // Submit recipe data
             fetch("/api/recipes", {
@@ -41,32 +41,15 @@ const RecipeForm = () => {
               headers: {
                 "Content-Type": "application/json",
               },
-              body: JSON.stringify(recipeData),
+              body: JSON.stringify(values),
             })
               .then((response) => {
                 if (response.ok) {
-                  console.log("Successfully created a recipe");
-                  // If recipe submission succeeds, submit ingredients
-                  return fetch("/api/ingredients", {
-                    method: "POST",
-                    headers: {
-                      "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({ ingredients }),
-                  });
+                  console.log("Successfully created a recipe");                                    
                 } else {
                   // Recipe submission failed, handle error
                   console.error("Failed to create recipe. Please try again later.");
                   throw new Error("Failed to create recipe.");
-                }
-              })
-              .then((response) => {
-                if (response.ok) {
-                  console.log("Successfully added ingredients");
-                } else {
-                  // Ingredient submission failed, handle error
-                  console.error("Failed to add ingredients. Please try again later.");
-                  throw new Error("Failed to add ingredients.");
                 }
               })
               .catch((error) => {
@@ -116,6 +99,23 @@ const RecipeForm = () => {
                   )}
                 </Field>
               </Flex>
+              <Field name="img_url">
+                  {({ field }) => (
+                    <FormControl
+                      id="img_url"
+                      mt={4}
+                      isInvalid={field.error && field.touched}
+                    >
+                      <FormLabel>Image URL</FormLabel>
+                      <Input {...field} type="text" />
+                      <ErrorMessage
+                        name="img_url"
+                        component={Text}
+                        color="red.500"
+                      />
+                    </FormControl>
+                  )}
+                </Field>
               <Field name="description">
                 {({ field }) => (
                   <FormControl
@@ -169,7 +169,8 @@ const RecipeForm = () => {
               </Field>
 
               <Button
-                colorScheme="blue"
+                bg="#FFCA3A"
+                color="#111"                
                 mt={4}
                 type="submit"
                 isLoading={isSubmitting}
