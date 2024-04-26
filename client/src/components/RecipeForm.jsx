@@ -23,17 +23,18 @@ const RecipeForm = () => {
             instructions: "",
             cook_time: "",
             ingredients: "", // Added ingredients field
+            img_url:""
           }}
           validationSchema={Yup.object({
             title: Yup.string().required("Title is required"),
             description: Yup.string().required("Description is required"),
             instructions: Yup.string().required("Instructions are required"),
             cook_time: Yup.string().required("Cook time is required"),
-            ingredients: Yup.string().required("Ingredients are required"), 
-            img_url: Yup.string().required("Ingredients are required"), 
+            ingredients: Yup.string().required("Ingredients are required"),
+            img_url: Yup.string().required("Ingredients are required"),
           })}
-          onSubmit={(values, { setSubmitting }) => {
-            // Extract ingredients from values      
+          onSubmit={(values, { setSubmitting, resetForm }) => {
+            // Extract ingredients from values
 
             // Submit recipe data
             fetch("/api/recipes", {
@@ -45,10 +46,13 @@ const RecipeForm = () => {
             })
               .then((response) => {
                 if (response.ok) {
-                  console.log("Successfully created a recipe");                                    
+                  console.log("Successfully created a recipe");
+                  resetForm();
                 } else {
                   // Recipe submission failed, handle error
-                  console.error("Failed to create recipe. Please try again later.");
+                  console.error(
+                    "Failed to create recipe. Please try again later."
+                  );
                   throw new Error("Failed to create recipe.");
                 }
               })
@@ -100,22 +104,22 @@ const RecipeForm = () => {
                 </Field>
               </Flex>
               <Field name="img_url">
-                  {({ field }) => (
-                    <FormControl
-                      id="img_url"
-                      mt={4}
-                      isInvalid={field.error && field.touched}
-                    >
-                      <FormLabel>Image URL</FormLabel>
-                      <Input {...field} type="text" />
-                      <ErrorMessage
-                        name="img_url"
-                        component={Text}
-                        color="red.500"
-                      />
-                    </FormControl>
-                  )}
-                </Field>
+                {({ field }) => (
+                  <FormControl
+                    id="img_url"
+                    mt={4}
+                    isInvalid={field.error && field.touched}
+                  >
+                    <FormLabel>Image URL</FormLabel>
+                    <Input {...field} type="text" />
+                    <ErrorMessage
+                      name="img_url"
+                      component={Text}
+                      color="red.500"
+                    />
+                  </FormControl>
+                )}
+              </Field>
               <Field name="description">
                 {({ field }) => (
                   <FormControl
@@ -170,7 +174,7 @@ const RecipeForm = () => {
 
               <Button
                 bg="#FFCA3A"
-                color="#111"                
+                color="#111"
                 mt={4}
                 type="submit"
                 isLoading={isSubmitting}
