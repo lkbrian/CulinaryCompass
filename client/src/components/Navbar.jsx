@@ -41,9 +41,6 @@ function Navbar() {
         display={{ base: "none", lg: "flex" }}
         pr={"10px"}
       >
-        <NavLink className={"links"} to="/home">
-          Home
-        </NavLink>
         <NavLink className={"links"} to="/all_recipes">
           Recipes
         </NavLink>
@@ -82,17 +79,7 @@ function Navbar() {
             <DrawerCloseButton />
             <DrawerHeader></DrawerHeader>
 
-            <DrawerBody display={"flex"} flexDirection={"column"} gap={"8px"}>
-              <NavLink
-                className={"drawer-link"}
-                to={"/home"}
-                smooth="true"
-                onClick={() => {
-                  onClose();
-                }}
-              >
-                Home
-              </NavLink>
+            <DrawerBody display={"flex"} flexDirection={"column"} gap={"8px"}>          
               <NavLink
                 className={"drawer-link"}
                 to={"/all_recipes"}

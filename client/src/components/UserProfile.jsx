@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { SessionContext } from "./SessionContext";
 import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
-
-// import { RiLogoutCircleLine } from "react-icons/ri";
+import { TbLogout2 } from "react-icons/tb";
 import {
   Box,
   Flex,
@@ -151,8 +150,9 @@ function UserProfile() {
                         bg="#0a303d"
                         color="#fff"
                         onClick={handleLogoutClick}
+                        _hover={{bg:"#0a303d"}}
                       >
-                        Logout
+                        <TbLogout2 fontSize={'1.5rem'}/>
                       </Button>
                       <DeleteAccount onDeleteAccount={handleDeleteConfirmed} />
                     </Flex>

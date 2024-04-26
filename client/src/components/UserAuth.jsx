@@ -103,7 +103,7 @@ const showToastLogIn = (username) => {
         } else {
           // Call showToastLogIn for login
           showToastLogIn(responseData.username);
-          navigate("/home");
+          navigate("/all_recipes");
           window.location.reload();
         }
         console.log(
