@@ -25,8 +25,6 @@ function Recipes() {
       fetchRecipes();
     }, 1000);
   }, [url]);
-  console.log(recipes);
-
   return (
     <Box letterSpacing={2}>
       <Navbar />

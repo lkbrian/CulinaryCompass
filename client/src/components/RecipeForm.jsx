@@ -154,6 +154,7 @@ const RecipeForm = () => {
                   </FormControl>
                 )}
               </Field>
+              <Text as={"sup"}>each ingredient on a new line. Press enter to move to the next line</Text>
               <Field name="instructions">
                 {({ field }) => (
                   <FormControl

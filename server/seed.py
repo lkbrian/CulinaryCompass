@@ -104,9 +104,9 @@ with app.app_context():
     for _ in range(8):
         random_user = choice(all_users)
         random_recipe = choice(all_recipes)
-        value = randint(0, 5)
+        value = randint(1, 5)
         rating = Rating(
-            message=fake.paragraph(),
+            message=fake.paragraph(nb_sentences=4),
             rating_value=value,
             user=random_user,
             recipe=random_recipe,
