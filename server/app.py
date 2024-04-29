@@ -5,17 +5,6 @@ from config import app, db, api
 from models import Ingredient, User, Recipe
 
 
-@app.before_request
-def check_if_logged_in():
-    access = [
-        'signup',
-        'login',
-        'check_session'
-    ]
-
-    if (request.endpoint) not in access and (not session.get('user_id')):
-        return {'error': '401 Unauthorized'}, 401
-
 
 class Home(Resource):
     def get(self):
