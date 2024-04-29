@@ -81,7 +81,7 @@ const showToastLogIn = (username) => {
 
 
   const handleSubmit = async (values, actions) => {
-    const apiUrl = activeForm === "signup" ? "/api/signup" : "/api/login";
+    const apiUrl = activeForm === "signup" ? "https://culinarycompass-pnry.onrender.com//signup" : "https://culinarycompass-pnry.onrender.com//login";
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
