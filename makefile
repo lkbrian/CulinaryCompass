@@ -1,6 +1,6 @@
 installations:
-	cd client && npm install
 	cd server && pip install -r requirements.txt && pip install --upgrade pip
+	cd client && npm install && npm run build
 
 react:
 	cd client && npm run dev
@@ -15,4 +15,4 @@ database:
 
 
 app:
-	honcho start -f Procfile.dev
+	gunicorn --chdir server app:app
