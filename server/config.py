@@ -1,4 +1,5 @@
 import os
+from dotenv import load_dotenv
 from flask import Flask
 from flask_bcrypt import Bcrypt
 from flask_migrate import Migrate
@@ -7,7 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 from flask_cors import CORS
 
-
+load_dotenv()
 app = Flask(__name__)
 app.secret_key = b'b\x1f\xcak\xab\xa7o\xa8\xc0HeF'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
