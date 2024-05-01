@@ -22,6 +22,7 @@ function App() {
           <Route path="/collections" element={<Collections />} />
           <Route path="/favorites" element={<Favorite />} />
         </Routes>
+        layout
       </SessionProvider>
     </Router>
   );

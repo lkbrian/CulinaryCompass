@@ -15,4 +15,4 @@ database:
 
 
 app:
-	gunicorn --chdir server app:app
+	honcho start -f Procfile.dev
