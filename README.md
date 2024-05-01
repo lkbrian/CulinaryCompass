@@ -60,4 +60,3 @@ After completing the above steps, open your web browser and visit [localhost:400
  to start using the Culinary Compass application.
 
 Enjoy exploring the world of flavors and culinary experiences with Culinary Compass! 🍽️🌍
-	gunicorn --chdir server app:app 

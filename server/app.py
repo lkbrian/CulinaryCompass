@@ -5,6 +5,13 @@ from config import app, db, api
 from models import Ingredient, User, Recipe
 
 
+@app.before_request
+def check_if_logged_in():
+    access = ["signup", "login", "check_session"]
+
+    if (request.endpoint) not in access and (not session.get("user_id")):
+        return {"error": "401 Unauthorized"}, 401
+
 
 class Home(Resource):
     def get(self):
@@ -27,7 +34,7 @@ class SignUp(Resource):
             db.session.commit()
             session['user_id'] = new_user.id
             return new_user.to_dict(),201
-        
+
 class Check_session(Resource):
     def get(self):
         
@@ -37,7 +44,7 @@ class Check_session(Resource):
             return user.to_dict(), 200
         
         return {}, 401    
-    
+
 class Login(Resource):
     def post(self):
         data = request.get_json()
@@ -50,7 +57,7 @@ class Login(Resource):
             return {'error': 'Invalid username or password'}, 401
         session['user_id'] = user.id
         return {'success': 'Logged in successfully', 'user': user.to_dict()}, 200
-    
+
 class Logout(Resource):
     def delete(self):
         session['user_id']=None
@@ -89,7 +96,7 @@ class Recipes(Resource):
 
             db.session.commit()            
             return make_response(recipe.to_dict(),201)
-        
+
 
 class Favourite(Resource):
     def get(self):
@@ -108,14 +115,13 @@ class FavouriteByID(Resource):
         return response
 
 
-    
 class Collection(Resource):
     def get(self):
         collection_recipe = Recipe.query.filter(Recipe.collection == True).all()
         recipe_data = [recipe.to_dict() for recipe in collection_recipe]
         response = make_response(jsonify(recipe_data),200)
         return response
-       
+
 class CollectionByID(Resource):
     def get(self,id):
         collection_recipes = Recipe.query.filter(Recipe.collection == False).all()
@@ -197,9 +203,6 @@ class UpdateUser(Resource):
         except Exception as e:
             db.session.rollback()
             return {'error': str(e)}, 500
-
-        
-
 
 
 api.add_resource(Home, "/")
