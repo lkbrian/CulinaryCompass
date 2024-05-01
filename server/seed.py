@@ -18,7 +18,7 @@ with app.app_context():
 
     print("creating users")
     all_users = []
-    for _ in range(10):
+    for _ in range(4):
         while True:
             try:
                 username = fake.first_name()
