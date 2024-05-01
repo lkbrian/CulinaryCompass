@@ -5,7 +5,9 @@ import { BsArrowLeftCircleFill } from "react-icons/bs";
 
 const Favorite = () => {
   const [data, setData] = useState();
-  const apiUrl = `/api/favourites`;
+  const api = import.meta.env.VITE_API_URL;
+
+  const apiUrl = `${api}/favourites`;
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -5,7 +5,9 @@ import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 
 function Recipes() {
-  const url = "/api/recipes";
+  const api = import.meta.env.VITE_API_URL;
+
+  const url = `${api}/recipes`;
   const [recipes, setRecipes] = useState(null);
   const [loadstate, setLoadState] = useState(true);
   useEffect(() => {

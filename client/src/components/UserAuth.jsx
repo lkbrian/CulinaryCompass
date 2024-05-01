@@ -79,9 +79,10 @@ const showToastLogIn = (username) => {
   });
 };
 
+const api = import.meta.env.VITE_API_URL
 
   const handleSubmit = async (values, actions) => {
-    const apiUrl = activeForm === "signup" ? "/api/signup" : "/api/login";
+    const apiUrl = activeForm === "signup" ? `${api}/signup` : `${api}/login`;
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
@@ -106,11 +107,11 @@ const showToastLogIn = (username) => {
           navigate("/all_recipes");
           window.location.reload();
         }
-        console.log(
-          activeForm === "signup" ? "Signup" : "Login",
-          "successful:",
-          responseData
-        );
+        // console.log(
+        //   activeForm === "signup" ? "Signup" : "Login",
+        //   "successful:",
+        //   responseData
+        // );
         // Reset form and close the modal
 
         actions.resetForm();

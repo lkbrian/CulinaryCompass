@@ -31,6 +31,7 @@ function UserProfile() {
   const btnRef = React.useRef();
   const navigate = useNavigate();
   const { user, logged, setUser } = useContext(SessionContext);
+  const api = import.meta.env.VITE_API_URL;
 
   const [formData, setFormData] = useState({
     username: user?.username || "",
@@ -52,7 +53,7 @@ function UserProfile() {
         updatedData[key] = formData[key];
       }
     }
-    fetch(`/api/users/${user.id}`, {
+    fetch(`${api}/users/${user.id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -76,7 +77,7 @@ function UserProfile() {
   };
 
   function handleLogoutClick() {
-    fetch("/api/logout", { method: "DELETE" }).then((r) => {
+    fetch(`${api}/logout`, { method: "DELETE" }).then((r) => {
       if (r.ok) {
         navigate("/");
         setUser(null);
@@ -85,7 +86,7 @@ function UserProfile() {
   }
 
   const handleDeleteConfirmed = () => {
-    fetch(`/api/users/${user.id}`, {
+    fetch(`${api}/users/${user.id}`, {
       method: "DELETE",
     })
       .then((response) => {
