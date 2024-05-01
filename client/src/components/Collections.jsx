@@ -6,7 +6,8 @@ import Navbar from "./Navbar";
 
 const Collections = () => {
   const [data, setData] = useState();
-  const apiUrl = `/api/collections`;
+  const api = import.meta.env.VITE_API_URL;
+  const apiUrl = `${api}/collections`;
 
   useEffect(() => {
     const fetchData = async () => {

@@ -29,7 +29,9 @@ function RecipeByID() {
   });
 
   const { id } = useParams();
-  const url = `/api/recipes/${id}`;
+  const api = import.meta.env.VITE_API_URL;
+
+  const url = `${api}/recipes/${id}`;
   useEffect(() => {
     const singleRecipe = async () => {
       try {
@@ -55,7 +57,7 @@ function RecipeByID() {
   async function handleToggleFavouriteClick() {
     try {
       const newFavorite = !favorite; // variable that toggle the favorite status
-      const res = await fetch(`/api/recipes/${id}`, {
+      const res = await fetch(`${api}/recipes/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +77,7 @@ function RecipeByID() {
   async function handleToggleCollectionClick() {
     try {
       const newCollection = !collection; // variable that toggle the collection status
-      const res = await fetch(`/api/recipes/${id}`, {
+      const res = await fetch(`${api}/recipes/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
