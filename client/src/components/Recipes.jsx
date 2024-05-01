@@ -1,11 +1,13 @@
 import { Box, Flex, Img, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { HashLoader } from "react-spinners";
+import { BounceLoader } from "react-spinners";
 import Navbar from "./Navbar";
 import { Link } from "react-router-dom";
 
 function Recipes() {
-  const url = "/api/recipes";
+  const api = import.meta.env.VITE_API_URL;
+
+  const url = `${api}/recipes`;
   const [recipes, setRecipes] = useState(null);
   const [loadstate, setLoadState] = useState(true);
   useEffect(() => {
@@ -25,8 +27,6 @@ function Recipes() {
       fetchRecipes();
     }, 1000);
   }, [url]);
-  console.log(recipes);
-
   return (
     <Box letterSpacing={2}>
       <Navbar />
@@ -41,7 +41,7 @@ function Recipes() {
           h={"80vh"}
           gap={10}
         >
-          <HashLoader color="#FFCA3A" />
+          <BounceLoader color="#FFCA3A" />
           <Text fontWeight={500}>Please wait.Recipe data is loading</Text>
         </Flex>
       ) : (

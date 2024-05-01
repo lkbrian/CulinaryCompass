@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
 import { BsBookmarksFill } from "react-icons/bs";
 import banner from "../assets/banner.jpg";
+import { HiPencil } from "react-icons/hi2";
 
 function RecipeByID() {
   const [item, setItem] = useState(null);
@@ -28,7 +29,9 @@ function RecipeByID() {
   });
 
   const { id } = useParams();
-  const url = `/api/recipes/${id}`;
+  const api = import.meta.env.VITE_API_URL;
+
+  const url = `${api}/recipes/${id}`;
   useEffect(() => {
     const singleRecipe = async () => {
       try {
@@ -54,7 +57,7 @@ function RecipeByID() {
   async function handleToggleFavouriteClick() {
     try {
       const newFavorite = !favorite; // variable that toggle the favorite status
-      const res = await fetch(`/api/recipes/${id}`, {
+      const res = await fetch(`${api}/recipes/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +77,7 @@ function RecipeByID() {
   async function handleToggleCollectionClick() {
     try {
       const newCollection = !collection; // variable that toggle the collection status
-      const res = await fetch(`/api/recipes/${id}`, {
+      const res = await fetch(`${api}/recipes/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -197,6 +200,65 @@ function RecipeByID() {
             </Heading>
             <Flex alignItems={"center"} gap={4}>
               <Text>{item.cook_time}</Text>
+            </Flex>
+          </Box>
+
+          <Box
+            boxShadow={"rgba(0, 0, 0, 0.24) 0px 3px 8px"}
+            maxW={{ base: "90vw", md: "80vw", lg: "75vh" }}
+            m={"auto"}
+            mt={10}
+            mb={8}
+            display={"flex"}
+            flexDir={"column"}
+          >
+            <Flex justify={"space-between"} w={"100%"} px={4}>
+            <Heading
+              display={item.ratings.length > 0 ? "block" : "none"}
+              fontSize={24}
+              textAlign={"center"}
+              mt={2}
+            >
+              
+            </Heading>
+            <Box
+            color={"#111"}
+            letterSpacing={1}
+            p={1}
+            px={2}
+            borderRadius={"md"}
+            bg={"#ffca3a"}
+            display={"flex"}
+            alignItems={"center"}
+            gap={2}
+            fontSize={14}
+            mt={2}
+            fontWeight={"bold"}
+            cursor={"pointer"}
+            >              
+              Review
+              <HiPencil/>
+            </Box>
+            </Flex>
+            <Flex gap={2} flexDir={"column"} align={"center"} justify={"center"} textAlign={"center"} flexWrap={"wrap"}>
+              {item.ratings.map((rating) => (
+                // ⭐
+                <Box p={3}>
+                  <Avatar
+                    src={rating.user?.img_url}
+                    name={rating.user?.username}
+                    size="lg"
+                    mb={4}
+                  />                  
+                  <Text>
+                    {Array.from({ length: rating.rating_value }, (_, i) => (
+                      <span key={i}>⭐️</span>
+                    ))}
+                  </Text>
+                  <strong as={""}>{rating.user.username}</strong>
+                  <Text w={[340,400,440,480]}>{rating.message}</Text>
+                </Box>
+              ))}
             </Flex>
           </Box>
         </>

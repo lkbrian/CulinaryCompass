@@ -4,6 +4,8 @@ import * as Yup from "yup";
 import Navbar from "./Navbar";
 
 const RecipeForm = () => {
+  const api = import.meta.env.VITE_API_URL;
+
   return (
     <>
       <Navbar />
@@ -37,7 +39,7 @@ const RecipeForm = () => {
             // Extract ingredients from values
 
             // Submit recipe data
-            fetch("/api/recipes", {
+            fetch(`${api}/recipes`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -154,6 +156,7 @@ const RecipeForm = () => {
                   </FormControl>
                 )}
               </Field>
+              <Text as={"sup"}>each ingredient on a new line. Press enter to move to the next line</Text>
               <Field name="instructions">
                 {({ field }) => (
                   <FormControl

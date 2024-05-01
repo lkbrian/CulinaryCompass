@@ -62,7 +62,7 @@ class Recipe(db.Model, SerializerMixin):
     title = db.Column(db.String, nullable=False)
     description = db.Column(db.String)
     instructions = db.Column(db.String, nullable=False)
-    cook_time = db.Column(db.Integer)
+    cook_time = db.Column(db.String)
     favorite = db.Column(db.Boolean, default=False)
     collection = db.Column(db.Boolean, default=False)
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))

@@ -6,11 +6,12 @@ const SessionContext = createContext();
 const SessionProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [logged, setLogged] = useState(false);
+  const api = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
     const fetchSession = async () => {
       try {
-        const response = await fetch("/api/check_session");
+        const response = await fetch(`${api}/check_session`);
         if (response.ok) {
           const data = await response.json();
           setUser(data);

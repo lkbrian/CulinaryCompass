@@ -1,7 +1,6 @@
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { SessionProvider } from "./components/SessionContext.jsx";
-import Home from "./components/Home";
 import RecipeForm from "./components/RecipeForm";
 import Recipes from "./components/Recipes";
 import RecipeByID from "./components/RecipeByID";
@@ -16,10 +15,9 @@ function App() {
       <SessionProvider>
         <Routes>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/home" element={<Home />} />
           <Route path="/create" element={<RecipeForm />} />
           <Route path="/all_recipes" element={<Recipes />} />
-          <Route path="/home/:username" element={<UserProfile />} />
+          <Route path="/user=?username" element={<UserProfile />} />
           <Route path="/all_recipes/:id" element={<RecipeByID />} />
           <Route path="/collections" element={<Collections />} />
           <Route path="/favorites" element={<Favorite />} />
