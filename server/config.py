@@ -31,4 +31,4 @@ bcrypt = Bcrypt(app)
 
 api = Api(app)
 
-CORS(app)
+CORS(app, resources={r"/api/*": {"origins": "https://culinary-compass-one.vercel.app"}})
