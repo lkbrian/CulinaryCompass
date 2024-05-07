@@ -5,8 +5,8 @@ import UserAuth from "./UserAuth";
 
 function Auth() {
   return (
-    <Flex justify={"space-between"}align={'center'} px={10}>
-      <Box w={{ base: "190px", md: "300px" }}>
+    <Flex justify={"space-between"}align={'center'} px={{base:'1',md: '10'}}>
+      <Box w={{ base: "150px", md: "300px" }}>
         <Image src={logo} objectFit={"contain"} />
       </Box>
       <UserAuth/>
