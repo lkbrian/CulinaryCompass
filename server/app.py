@@ -100,14 +100,14 @@ class Recipes(Resource):
 
 class Favourite(Resource):
     def get(self):
-        favourite_recipe = Recipe.query.filter(Recipe.favorite == True).all()
+        favourite_recipe = Recipe.query.filter(Recipe.favorite == True).all()  # noqa: E712
         recipe_data  = [recipe.to_dict() for recipe in favourite_recipe]
         response = make_response(jsonify(recipe_data),200)
         return response 
     pass
 class FavouriteByID(Resource):
     def get(self,id):
-        favourite_recipes = Recipe.query.filter(Recipe.favorite == True).all()
+        favourite_recipes = Recipe.query.filter(Recipe.favorite == True).all()  # noqa: E712
         if not favourite_recipes:
                 return {'Error': f'Recipe {id} not found'}, 404
         favourite_data = [recipe.to_dict() for recipe in favourite_recipes]
@@ -117,14 +117,14 @@ class FavouriteByID(Resource):
 
 class Collection(Resource):
     def get(self):
-        collection_recipe = Recipe.query.filter(Recipe.collection == True).all()
+        collection_recipe = Recipe.query.filter(Recipe.collection == True).all()  # noqa: E712
         recipe_data = [recipe.to_dict() for recipe in collection_recipe]
         response = make_response(jsonify(recipe_data),200)
         return response
 
 class CollectionByID(Resource):
     def get(self,id):
-        collection_recipes = Recipe.query.filter(Recipe.collection == False).all()
+        collection_recipes = Recipe.query.filter(Recipe.collection == False).all()  # noqa: E712
         if not collection_recipes:
             return {'message': f'No recipe {id} found for this collection'}, 404
 
