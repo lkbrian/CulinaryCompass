@@ -7,7 +7,7 @@ from models import Ingredient, User, Recipe
 
 @app.before_request
 def check_if_logged_in():
-    access = ["signup", "login", "check_session"]
+    access = ["signup", "login", "check_session","recipes"]
 
     if (request.endpoint) not in access and (not session.get("user_id")):
         return {"error": "401 Unauthorized"}, 401
