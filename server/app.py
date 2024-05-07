@@ -7,7 +7,19 @@ from models import Ingredient, User, Recipe
 
 @app.before_request
 def check_if_logged_in():
-    access = ["signup", "login", "check_session","recipes"]
+    access = [
+        "signup",
+        "login",
+        "check_session",
+        "recipes",
+        "logout",
+        "favourites",
+        "favourite_by_id",
+        "users",
+        "collections",
+        "collectionById",
+        "logout",
+    ]
 
     if (request.endpoint) not in access and (not session.get("user_id")):
         return {"error": "401 Unauthorized"}, 401
@@ -67,8 +79,7 @@ class Recipes(Resource):
     def get(self):
         recipe = [recipe.to_dict() for recipe in Recipe.query.all()]
         response = make_response(
-            jsonify(recipe)
-             ,200)
+            jsonify(recipe),200)
         return response
     
     def post(self):
@@ -218,6 +229,6 @@ api.add_resource(CollectionByID, '/collections/<int:id>',endpoint='collectionByI
 api.add_resource(RecipeByID, '/recipes/<int:id>', endpoint='recipeByID')
 api.add_resource(UpdateUser, '/users/<int:id>', endpoint='UpdateUser')
 
-
+#
 if __name__ == '__main__':
     app.run(port=5555,debug=True)
