@@ -15,9 +15,8 @@ import { Link } from "react-router-dom";
 
 function LandingPage() {
   return (
-      <Box minH={"100vh"} bg={"#fff"} color={"#0a303d"}>
-      
-      <Auth />  
+    <Box minH={"100vh"} bg={"#fff"} color={"#0a303d"}>
+      <Auth />
       <Box py={20} pb={40}>
         <Container maxW="container.xl">
           <Flex
@@ -39,7 +38,12 @@ function LandingPage() {
                   helpful tips to guide you in the kitchen, regardless of your
                   experience level.
                 </Text>
-                <Button bg={"#FFCA3A"} w={"35%"} as={Link} to="/all_recipes">
+                <Button
+                  bg={"#FFCA3A"}
+                  w={{ base: "100%", md: "35%" }}
+                  as={Link}
+                  to="/all_recipes"
+                >
                   Explore Recipes
                 </Button>
               </Stack>
@@ -61,7 +65,7 @@ function LandingPage() {
             flexDirection="column"
             alignItems="center"
           >
-            <Heading size="xl" mb={4}>
+            <Heading size="xl" mb={4} textAlign={'center'}>
               Find Your Perfect Recipe
             </Heading>
             <Text fontSize="lg" textAlign="center" maxW="600px" mb={8}>
@@ -110,15 +114,18 @@ function LandingPage() {
               <Text
                 fontSize="lg"
                 letterSpacing={1}
-                w={[250,300,400,500, 600]}
+                w={[350, 400, 500, 600]}
                 textAlign={"center"}
               >
                 Break free from the routine! Our extensive recipe collection
-                caters to diverse dietary needs and preferences. Whether
-                you&apos;re a dedicated vegetarian, a health-conscious foodie,
-                or someone simply seeking new culinary experiences, we have
-                something to ignite your passion. Find inspiration for weeknight
-                meals, special occasion feasts, or themed culinary explorations.
+                caters to diverse dietary needs and preferences.
+                <Text as = "span" display={{base: "none",md: "inline"}}>
+                  Whether you&apos;re a dedicated vegetarian, a health-conscious
+                  foodie, or someone simply seeking new culinary experiences, we
+                  have something to ignite your passion. Find inspiration for
+                  weeknight meals, special occasion feasts, or themed culinary
+                  explorations.
+                </Text>
               </Text>
               <Button bg={"#FFCA3A"} mt={8} as={Link} to="/all_recipes">
                 Get Inspired
