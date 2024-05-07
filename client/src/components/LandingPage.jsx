@@ -110,7 +110,7 @@ function LandingPage() {
               <Text
                 fontSize="lg"
                 letterSpacing={1}
-                w={[500, 600]}
+                w={[250,300,400,500, 600]}
                 textAlign={"center"}
               >
                 Break free from the routine! Our extensive recipe collection
