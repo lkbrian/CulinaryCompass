@@ -309,11 +309,32 @@ const api = import.meta.env.VITE_API_URL
                         )}
                       </Field>
                     )}
-                    <Text fontSize="sm">
-                      {activeForm === "signup"
-                        ? "Already have an account?"
-                        : "Forgot Password?"}
-                    </Text>
+                    <Box fontSize="sm">
+                      {activeForm === "signup" ? (
+                        <Text>
+                          Already have an account?
+                          <span
+                            onClick={() => handleFormChange("signin")}
+                            cursor={"pointer"}
+                            textDecoration={"underline"}
+                          >
+                            Sign in
+                          </span>{" "}
+                          instead
+                        </Text>
+                      ) : (
+                        <Text>
+                          Don't have an account?{" "}
+                          <span
+                            onClick={() => handleFormChange("signup")}
+                            cursor={"pointer"}
+                            textDecoration={"underline"}
+                          >
+                            Sign up
+                          </span>
+                        </Text>
+                      )}
+                    </Box>
                     <Button
                       alignSelf={"center"}
                       w={"150px"}
